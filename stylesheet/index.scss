@@ -1,0 +1,62 @@
+.banner {
+    background: url('your-banner-image.jpg') center/cover no-repeat;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 20px;
+  }
+  
+  .banner-content {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px 30px;
+    border-radius: 12px;
+  }
+  
+  .banner h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  
+  .banner p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+  
+  .banner-btn {
+    padding: 10px 20px;
+    background-color: #ff4d4d;
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  .banner-btn:hover {
+    background-color: #e60000;
+  }
+.footer-top {
+background-color: #ffffff;
+padding: 2rem 0;
+}
+
+.footer-bottom {
+background-color: #7a8431; /* 可依照你主色調調整 */
+color: #ffffff;
+font-size: 0.9rem;
+text-align: center;
+padding: 1rem 0;
+}
+
+.footer-contact i {
+margin-right: 8px;
+color: #7a8431;
+}
+
+.footer-logo img {
+max-width: 150px;
+}
+  
