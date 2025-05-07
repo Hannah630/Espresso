@@ -61,3 +61,17 @@
 .footer-logo img {
   max-width: 150px;
 }
+
+.image-text {
+  font-size: 160px;
+  font-weight: 800;
+  font-family: sans-serif;
+  background-image: url("/pic/sbackground.jpg"); /* 你的圖片 */
+  background-size: contain;
+  background-position: center;
+  color: transparent;
+  -webkit-background-clip: text; /* Safari / Chrome */
+  background-clip: text;
+  text-align: center;
+  line-height: 1;
+}
