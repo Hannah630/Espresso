@@ -65,7 +65,7 @@
 .image-text {
   font-size: 160px;
   font-weight: 800;
-  font-family: sans-serif;
+  font-family: "Anton", sans-serif;
   background-image: url("../pic/sbackground.jpg"); /* 你的圖片 */
   background-size: contain;
   background-position: center;
@@ -74,4 +74,8 @@
   background-clip: text;
   text-align: center;
   line-height: 1;
+}
+
+body {
+  background-color: #111; /* 與原圖一致深背景 */
 }
