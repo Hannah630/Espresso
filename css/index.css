@@ -66,7 +66,7 @@
   font-size: 160px;
   font-weight: 800;
   font-family: sans-serif;
-  background-image: url("/pic/sbackground.jpg"); /* 你的圖片 */
+  background-image: url("../pic/sbackground.jpg"); /* 你的圖片 */
   background-size: contain;
   background-position: center;
   color: transparent;
