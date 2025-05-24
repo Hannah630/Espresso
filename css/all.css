@@ -1,13 +1,14 @@
 @charset "UTF-8";
 .banner {
-  background: url("your-banner-image.jpg") center/cover no-repeat;
-  height: 300px;
+  background: url("../pic/banner.jpg") center center/cover no-repeat;
+  height: 500px; /* 或你想要的高度 */
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   color: white;
   padding: 20px;
+  position: relative;
 }
 
 .banner-content {
@@ -40,8 +41,15 @@
   background-color: #e60000;
 }
 
+.product-img {
+  width: 100%;
+  height: auto;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
 .footer-top {
-  background-color: #ffffff;
+  background-color: #f4fac5;
   padding: 2rem 0;
 }
 
@@ -78,4 +86,47 @@
 
 body {
   background-color: #111; /* 與原圖一致深背景 */
+}
+
+/* 📱 手機版 */
+@media (max-width: 576px) {
+  .banner {
+    height: auto;
+    padding: 60px 15px;
+  }
+  .banner-content {
+    padding: 16px;
+    border-radius: 10px;
+  }
+  .banner h1 {
+    font-size: 1.5rem;
+  }
+  .banner p {
+    font-size: 1rem;
+  }
+  .banner-btn {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+    border-radius: 16px;
+  }
+}
+/* 📲 平板版（含手機橫放） */
+@media (max-width: 1024px) {
+  .banner {
+    height: auto;
+    padding: 80px 30px;
+  }
+  .banner-content {
+    padding: 24px;
+  }
+  .banner h1 {
+    font-size: 1.8rem;
+  }
+  .banner p {
+    font-size: 1.1rem;
+  }
+  .banner-btn {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
 }
