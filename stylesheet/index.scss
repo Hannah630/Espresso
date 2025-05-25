@@ -49,12 +49,13 @@
 }
 
 .footer-top {
-background-color: #f4fac5;
+background-color: #D6BCA3;
 padding: 2rem 0;
+color: #ffffff;
 }
 
 .footer-bottom {
-background-color: #7a8431; /* 可依照你主色調調整 */
+background-color: #3C686E; /* 可依照你主色調調整 */
 color: #ffffff;
 font-size: 0.9rem;
 text-align: center;
@@ -114,6 +115,9 @@ body {
     padding: 8px 16px;
     border-radius: 16px;
   }
+  .image-text {
+    font-size: 3rem;
+  }
 }
 
 /* 📲 平板版（含手機橫放） */
@@ -138,5 +142,8 @@ body {
   .banner-btn {
     font-size: 1rem;
     padding: 10px 20px;
+  }
+  .image-text {
+    font-size: 10rem;
   }
 }
