@@ -62,13 +62,15 @@ text-align: center;
 padding: 1rem 0;
 }
 
-.footer-contact i {
-margin-right: 8px;
-color: #7a8431;
-}
-
 .footer-logo img {
 max-width: 150px;
+}
+.footer-contact i {
+  color: #fff8e7;
+  font-size: 1.2rem;
+}
+.footer-contact p {
+  margin-bottom: 0.5rem;
 }
 
 .image-text {
