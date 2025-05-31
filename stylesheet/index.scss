@@ -116,39 +116,53 @@ body {
 
 /* 📱 手機版 */
 @media (max-width: 576px) {
+ 
   .banner {
-    height: auto;
-    padding: 60px 15px;
+    background: url('../pic/banner-mobile.png') no-repeat center center !important;
+    background-size: cover !important;
   }
-
   .banner-content {
-    padding: 16px;
-    border-radius: 10px;
+    left: 50%;
+    bottom: 10px;
+    transform: translateX(-50%); /* ✅ 水平置中 */
+    padding: 5px;
+    text-align: center;
+    max-width: 90%; /* ✅ 可視需要調整寬度 */
   }
 
   .banner h1 {
-    font-size: 1.5rem;
+    font-size: 25px!important;
+    margin-bottom: 5px;
   }
 
   .banner p {
-    font-size: 1rem;
+    font-size: 15px!important;
+    margin-bottom: 10px;
   }
 
   .banner-btn {
     font-size: 0.9rem;
     padding: 8px 16px;
     border-radius: 16px;
+    margin-bottom: 5px;
   }
   .image-text {
-    font-size: 3rem;
+    font-size: 1rem;
+  }
+  .angled-logo {
+    top: 50px;       /* 或 8px, 10px 等你喜歡的高度 */
+    right: 0;
+    padding: 6px 12px; /* 可讓內距也更小一點 */
+    font-size: 12px;   /* 手機上可縮小文字 */
   }
 }
 
 /* 📲 平板版（含手機橫放） */
 @media (max-width: 1024px) {
   .banner {
-    height: auto;
+    height: 500px;
     padding: 80px 30px;
+    background: url('../pic/banner-com.png') center center / cover no-repeat;
   }
 
   .banner-content {
