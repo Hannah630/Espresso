@@ -1,26 +1,25 @@
-
 .banner {
-  background: url('../pic/banner.jpg') center center / cover no-repeat;
-  height: 500px; /* 或你想要的高度 */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+  background: url('../pic/banner-com.png') center center / cover no-repeat;
+  height: 600px; /* 可依圖片尺寸調整 */
+  position: relative;
   color: white;
   padding: 20px;
-  position: relative;
 }
 
-  
 .banner-content {
-  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  bottom: 60px;
+  left: 60px;
   padding: 20px 30px;
   border-radius: 12px;
+  text-align: left; /* 靠左對齊 */
+  max-width: 300px; /* 或根據需要限制寬度 */
 }
 
 .banner h1 {
   font-size: 2rem;
   margin-bottom: 10px;
+  white-space: nowrap; /* ✅ 強制不換行 */
 }
 
 .banner p {
@@ -36,11 +35,34 @@
   border-radius: 20px;
   font-weight: bold;
   transition: background-color 0.3s ease;
+  display: inline-block;
 }
 
 .banner-btn:hover {
   background-color: #e60000;
 }
+
+.angled-logo {
+  position: absolute;
+  top: 10;
+  right: 0;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.5);
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  clip-path: polygon(20% 0%, 100% 0%, 100% 100%, 0% 100%);
+}
+
+.angled-logo img {
+  width: 20px;
+  height: 20px;
+}
+
 
 .product-img {
   width: 100%;
