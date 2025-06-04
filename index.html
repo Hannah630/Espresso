@@ -8,12 +8,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-
+   
 
 </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark px-3" style="background-color:#3C686E;">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="index.html">
       <img src="your-logo.png" alt="logo" width="40" height="40">佑奕設計
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -26,13 +26,18 @@
           <a class="nav-link active" href="index.html">首頁</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="#about">產品說明</a>
+          <a class="nav-link active" href="index.html">產品說明</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="#contact">聯絡我們</a>
+          <a class="nav-link active" href="index.html">聯絡我們</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link active" href="checkout.html">購物車</a>
+        <li class="nav-item position-relative">
+          <a class="nav-link active" href="checkout.html">
+            🛒 購物車
+            <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              0
+            </span>
+          </a>
         </li>
       </ul>
     </div>
@@ -260,122 +265,9 @@
 </footer>
       
       
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-      let currentItem = {
-        name: '研磨壓萃咖啡組',
-        price: 9800,
-        img: 'pic/product1.png',
-        desc: '內容物：磨豆機+壓萃機+清潔刷'
-      };
-    
-      // 切換商品資訊與更新按鈕 active 狀態
-      document.querySelectorAll('.change-item').forEach(el => {
-        el.addEventListener('click', () => {
-          currentItem.name = el.dataset.name;
-          currentItem.price = parseInt(el.dataset.price);
-          currentItem.img = el.dataset.img;
-          currentItem.desc = el.dataset.desc || '';
-    
-          document.getElementById('product-img').src = currentItem.img;
-          document.getElementById('product-name').textContent = currentItem.name;
-          document.getElementById('product-price').textContent = currentItem.price;
-          document.getElementById('product-desc').textContent = currentItem.desc;
-    
-          // 移除所有 change-item 的 active class
-          document.querySelectorAll('.change-item').forEach(btn => btn.classList.remove('active'));
-          // 新增當前點擊元素 active class
-          el.classList.add('active');
-    
-          // 若是點小圖，找出對應的按鈕也加上 active
-          document.querySelectorAll('.change-item').forEach(btn => {
-            if (btn.tagName === 'BUTTON' && btn.dataset.name === currentItem.name) {
-              btn.classList.add('active');
-            }
-          });
-        });
-      });
-    
-      // 加入購物車
-      document.getElementById('add-to-cart').addEventListener('click', () => {
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
-        const existing = cart.find(item => item.name === currentItem.name);
-        if (existing) {
-          existing.qty++;
-        } else {
-          cart.push({ ...currentItem, qty: 1 });
-        }
-        localStorage.setItem('cart', JSON.stringify(cart));
-        alert(`${currentItem.name} 已加入購物車`);
-        loadCart();
-      });
-    
-      // 載入購物車
-      function loadCart() {
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
-        const container = document.getElementById('cart-items');
-        const total = document.getElementById('cart-total');
-        if (!container || !total) return;
-        container.innerHTML = '';
-        let sum = 0;
-    
-        if (cart.length === 0) {
-          container.innerHTML = '<p class="text-muted">購物車是空的。</p>';
-          total.textContent = '0';
-          return;
-        }
-    
-        cart.forEach((item, index) => {
-          const itemTotal = item.price * item.qty;
-          sum += itemTotal;
-          container.innerHTML += `
-            <div class="card mb-2">
-              <div class="card-body">
-                <h5>${item.name}</h5>
-                <p class="mb-1 text-muted">${item.desc || ''}</p>
-                <p>單價 NT$${item.price} x ${item.qty} = NT$${itemTotal}</p>
-                <button class="btn btn-sm btn-danger" onclick="removeItem(${index})">移除</button>
-              </div>
-            </div>`;
-        });
-        total.textContent = sum;
-      }
-    
-      // 移除購物車項目
-      function removeItem(index) {
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
-        cart.splice(index, 1);
-        localStorage.setItem('cart', JSON.stringify(cart));
-        loadCart();
-      }
-    
-      // 訂單送出
-      document.getElementById('checkout-form')?.addEventListener('submit', function (e) {
-        e.preventDefault();
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
-        if (cart.length === 0) return alert('購物車是空的');
-    
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const address = document.getElementById('address').value;
-        const total = document.getElementById('cart-total').textContent;
-        const items = cart.map(item => `${item.name} x${item.qty}`).join('\n');
-    
-        emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
-          name, email, address, total, items
-        }).then(() => {
-          alert('✅ 訂單已送出！');
-          localStorage.removeItem('cart');
-          document.getElementById('checkout-form').reset();
-          loadCart();
-        }, err => alert('❌ 發送失敗：' + JSON.stringify(err)));
-      });
-    
-      loadCart();
-    </script>
-    
-    
-    
-    
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <script src="js/cart.js"></script>
 </body>
 </html>
