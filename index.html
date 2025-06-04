@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>佑奕設計社</title>
+    <title>佑奕設計</title>
     <link rel="stylesheet" href="css/all.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
@@ -14,7 +14,7 @@
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark px-3" style="background-color:#3C686E;">
     <a class="navbar-brand" href="#">
-      <img src="your-logo.png" alt="logo" width="40" height="40">佑奕設計社
+      <img src="your-logo.png" alt="logo" width="40" height="40">佑奕設計
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
@@ -31,6 +31,9 @@
         <li class="nav-item">
           <a class="nav-link active" href="#contact">聯絡我們</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/checkout.html">購物車</a>
+        </li>
       </ul>
     </div>
   </nav>
@@ -44,60 +47,85 @@
   
     <div class="banner-content">
       <h1>Anywhere, Anytime</h1>
-      <p>一杯剛剛好的咖啡</p>
+      <p>磨一刻靜心，萃一杯深意</p>
       <a href="#about" class="banner-btn">瞭解更多</a>
     </div>
   </section>
   
-     <!-- 商品展示區塊 -->
-<div class="container my-5">
-  <div class="row">
-    <!-- 左側：商品圖片輪播 -->
-    <div class="col-md-8 d-flex justify-content-center">
-      <div class="carousel-wrap" style="max-width: 500px; width: 100%;">
-        <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img src="pic/product1.png" class="d-block w-100 product-img" alt="商品1">
+  <div class="container-fluid " style="min-height: 70vh;">
+    <div class="row h-100 justify-content-center align-items-center">
+      <div class="col-md-8">
+        <div class="row align-items-center">
+          
+          
+    <!-- 左邊圖片區塊 -->
+    <div class="col-md-6 text-center mb-4 mb-md-0">
+    <!-- 主圖片 -->
+      <img id="product-img" src="pic/product1.png" class="img-fluid my-3"
+        style="max-height: 300px; object-fit: contain;" alt="主圖">
+
+      <!-- 小圖按鈕列 -->
+      <div class="d-flex flex-wrap justify-content-center">
+        <img src="pic/product1.png" class="img-thumbnail m-1 change-item"
+          style="width: 60px; height: 60px; object-fit: cover; cursor: pointer;"
+          data-name="研磨壓萃咖啡組" data-price="9800" data-img="pic/product1.png" alt="咖啡組">
+          
+        <img src="pic/product3.png" class="img-thumbnail m-1 change-item"
+          style="width: 60px; height: 60px; object-fit: cover; cursor: pointer;"
+          data-name="磨豆機" data-price="3800" data-img="pic/product3.png" alt="磨豆機">
+
+        <img src="pic/product2.png" class="img-thumbnail m-1 change-item"
+          style="width: 60px; height: 60px; object-fit: cover; cursor: pointer;"
+          data-name="壓萃機" data-price="5800" data-img="pic/product2.png" alt="壓萃機">
+
+        <img src="pic/product4.png" class="img-thumbnail m-1 change-item"
+          style="width: 60px; height: 60px; object-fit: cover; cursor: pointer;"
+          data-name="PVD鍍膜粉杯" data-price="250" data-img="pic/product4.png" alt="粉杯">
+
+        <img src="pic/product1.png" class="img-thumbnail m-1 change-item"
+          style="width: 60px; height: 60px; object-fit: cover; cursor: pointer;"
+          data-name="多功能清潔刷" data-price="250" data-img="pic/product1.png" alt="清潔刷">
+      </div>
+    </div>
+
+          
+  
+          <!-- 右邊：文字與按鈕 -->
+          <div class="col-md-6 text-center text-md-start">
+            <h4 id="product-name">研磨壓萃咖啡組</h4>
+            <p>NT$ <span id="product-price">9800</span></p>
+  
+            <!-- 選項按鈕 -->
+            <div class="btn-group d-flex flex-wrap justify-content-center justify-content-md-start mb-3" role="group">
+              <button class="btn btn-outline-dark m-1 change-item active"
+                data-name="研磨壓萃咖啡組" data-price="9800" data-img="pic/product1.png">咖啡組</button>
+              <button class="btn btn-outline-dark m-1 change-item"
+                data-name="磨豆機" data-price="3800" data-img="pic/product3.png">磨豆機</button>
+              <button class="btn btn-outline-dark m-1 change-item"
+                data-name="壓萃機" data-price="5800" data-img="pic/product2.png">壓萃機</button>
+              <button class="btn btn-outline-dark m-1 change-item"
+                data-name="PVD鍍膜粉杯" data-price="250" data-img="pic/product4.png">粉杯</button>
+              <button class="btn btn-outline-dark m-1 change-item"
+                data-name="多功能清潔刷" data-price="250" data-img="pic/product4.png">清潔刷</button>
             </div>
-            <div class="carousel-item">
-              <img src="pic/product2.png" class="d-block w-100 product-img" alt="商品2">
+  
+            <!-- 操作按鈕 -->
+            <div class="d-flex gap-2 mb-2">
+              <button class="btn btn-primary flex-fill" id="add-to-cart">加入購物車</button>
+              <button class="btn btn-success flex-fill" onclick="window.open('https://line.me/ti/p/@899lielt', '_blank')">
+                💬 LINE 詢問
+              </button>
             </div>
-            <div class="carousel-item active">
-              <img src="pic/product3.png" class="d-block w-100 product-img" alt="商品1">
-            </div>
+            
+            
+            
           </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon"></span>
-          </button>
         </div>
       </div>
     </div>
-
-    <!-- 右側：商品資訊與按鈕 -->
-    <div class="col-md-4 d-flex flex-column justify-content-center mt-4 mt-md-0">
-      <h2 class="mb-3">輕巧手沖咖啡機</h2>
-      <p class="text-muted mb-2">NT$????</p>
-      <p class="mb-4">戶外、居家皆適用，簡單沖泡，體驗手沖的溫度。</p>
-
-      <p class="text-muted mb-3">請透過 LINE 私訊詢問與下單，我們將提供轉帳資訊與出貨說明：</p>
-
-      <a href="https://line.me/ti/p/@899lielt" target="_blank" class="btn btn-success btn-lg mb-3">
-        💬 加入 LINE 詢問 / 下單
-      </a>
-
-      <div class="alert alert-secondary" role="alert" style="font-size: 0.95rem;">
-        若您不熟 LINE 操作，也可透過臉書或電話與我們聯繫，我們會盡快協助您下單。
-      </div>
-    </div>
   </div>
-</div>
-
-
-
+  
+  
 
       <!-- 操作指南-->
       <section class="container py-5" id="about">
@@ -222,11 +250,50 @@
 
   <!-- 底部版權 -->
   <div class="footer-bottom">
-    ©Copyright 2025 by 佑奕設計社 All Rights Reserved.｜Design by 佑奕設計社
+    ©Copyright 2025 by 佑奕設計社 All Rights Reserved.｜Design by 佑奕設計
   </div>
 </footer>
       
       
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      let currentItem = {
+        name: '研磨壓萃咖啡組',
+        price: 9800,
+        img: 'pic/product1.png'
+      };
+    
+      // 點圖片或按鈕都能切換商品
+      document.querySelectorAll('.change-item').forEach(el => {
+        el.addEventListener('click', () => {
+          currentItem.name = el.dataset.name;
+          currentItem.price = parseInt(el.dataset.price);
+    
+          // 如果有 data-img 就切換圖片
+          if (el.dataset.img) {
+            currentItem.img = el.dataset.img;
+            document.getElementById('product-img').src = currentItem.img;
+          }
+    
+          document.getElementById('product-name').textContent = currentItem.name;
+          document.getElementById('product-price').textContent = currentItem.price;
+        });
+      });
+    
+      // 加入購物車
+      document.getElementById('add-to-cart').addEventListener('click', () => {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const existing = cart.find(item => item.name === currentItem.name);
+        if (existing) {
+          existing.qty++;
+        } else {
+          cart.push({ ...currentItem, qty: 1 });
+        }
+        localStorage.setItem('cart', JSON.stringify(cart));
+        alert(`${currentItem.name} 已加入購物車`);
+      });
+    </script>
+    
+    
 </body>
 </html>

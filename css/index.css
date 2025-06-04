@@ -65,6 +65,15 @@
   height: 20px;
 }
 
+.card {
+  min-height: 100%;
+}
+
+.variant-btn {
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
 .product-img {
   width: 100%;
   height: auto;
