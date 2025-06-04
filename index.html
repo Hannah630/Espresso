@@ -52,7 +52,7 @@
     </div>
   </section>
   
-  <div class="container-fluid " style="min-height: 70vh;">
+  <div class="container-fluid " style="min-height: 60vh; padding: 50px;">
     <div class="row h-100 justify-content-center align-items-center">
       <div class="col-md-8">
         <div class="row align-items-center">
@@ -68,15 +68,15 @@
       <div class="d-flex flex-wrap justify-content-center">
         <img src="pic/product1.png" class="img-thumbnail m-1 change-item"
           style="width: 60px; height: 60px; object-fit: cover; cursor: pointer;"
-          data-name="研磨壓萃咖啡組" data-price="9800" data-img="pic/product1.png" alt="咖啡組">
+          data-name="研磨壓萃咖啡組" data-price="9800" data-img="pic/product1.png" alt="研磨壓萃咖啡組" data-desc="內容物(磨豆機G-works+壓萃機E-works+提袋+粉杯+多功能清潔用具)">
           
         <img src="pic/product3.png" class="img-thumbnail m-1 change-item"
           style="width: 60px; height: 60px; object-fit: cover; cursor: pointer;"
-          data-name="磨豆機" data-price="3800" data-img="pic/product3.png" alt="磨豆機">
+          data-name="磨豆機G-works" data-price="3800" data-img="pic/product3.png" alt="磨豆機G-works" data-desc="戶外、居家皆適用，簡單沖泡，體驗手沖的溫度。">
 
         <img src="pic/product2.png" class="img-thumbnail m-1 change-item"
           style="width: 60px; height: 60px; object-fit: cover; cursor: pointer;"
-          data-name="壓萃機" data-price="5800" data-img="pic/product2.png" alt="壓萃機">
+          data-name="壓萃機E-works" data-price="5800" data-img="pic/product2.png" alt="壓萃機E-works">
 
         <img src="pic/product4.png" class="img-thumbnail m-1 change-item"
           style="width: 60px; height: 60px; object-fit: cover; cursor: pointer;"
@@ -90,34 +90,35 @@
 
           
   
-          <!-- 右邊：文字與按鈕 -->
-          <div class="col-md-6 text-center text-md-start">
-            <h4 id="product-name">研磨壓萃咖啡組</h4>
-            <p>NT$ <span id="product-price">9800</span></p>
-  
-            <!-- 選項按鈕 -->
-            <div class="btn-group d-flex flex-wrap justify-content-center justify-content-md-start mb-3" role="group">
-              <button class="btn btn-outline-dark m-1 change-item active"
-                data-name="研磨壓萃咖啡組" data-price="9800" data-img="pic/product1.png">咖啡組</button>
-              <button class="btn btn-outline-dark m-1 change-item"
-                data-name="磨豆機" data-price="3800" data-img="pic/product3.png">磨豆機</button>
-              <button class="btn btn-outline-dark m-1 change-item"
-                data-name="壓萃機" data-price="5800" data-img="pic/product2.png">壓萃機</button>
-              <button class="btn btn-outline-dark m-1 change-item"
-                data-name="PVD鍍膜粉杯" data-price="250" data-img="pic/product4.png">粉杯</button>
-              <button class="btn btn-outline-dark m-1 change-item"
-                data-name="多功能清潔刷" data-price="250" data-img="pic/product4.png">清潔刷</button>
-            </div>
-  
-            <!-- 操作按鈕 -->
-            <div class="d-flex gap-2 mb-2">
-              <button class="btn btn-primary flex-fill" id="add-to-cart">加入購物車</button>
-              <button class="btn btn-success flex-fill" onclick="window.open('https://line.me/ti/p/@899lielt', '_blank')">
-                💬 LINE 詢問
-              </button>
-            </div>
-            
-            
+        <!-- 右邊：文字與按鈕 -->
+        <div class="col-md-6 text-center text-md-start">
+          <h4 id="product-name">研磨壓萃咖啡組</h4>
+          <p id="product-desc" class="text-muted mb-2">
+            內容物(磨豆機G-works+壓萃機E-works+提袋+粉杯+多功能清潔用具)
+          </p>
+          <p>NT$ <span id="product-price">9800</span></p>
+
+          <!-- 選項按鈕 -->
+          <div class="btn-group d-flex flex-wrap justify-content-center justify-content-md-start mb-3" role="group">
+            <button class="btn btn-outline-dark m-1 change-item active"
+              data-name="研磨壓萃咖啡組" data-price="9800" data-img="pic/product1.png"data-desc="內容物(磨豆機G-works+壓萃機E-works+提袋+粉杯+多功能清潔用具)">研磨壓萃咖啡組</button>
+            <button class="btn btn-outline-dark m-1 change-item"
+              data-name="磨豆機G-works" data-price="3800" data-img="pic/product3.png" data-desc="戶外、居家皆適用，簡單沖泡，體驗手沖的溫度。">磨豆機G-works</button>
+            <button class="btn btn-outline-dark m-1 change-item"
+              data-name="壓萃機E-works" data-price="5800" data-img="pic/product2.png">壓萃機E-works</button>
+            <button class="btn btn-outline-dark m-1 change-item"
+              data-name="PVD鍍膜粉杯" data-price="250" data-img="pic/product4.png">粉杯</button>
+            <button class="btn btn-outline-dark m-1 change-item"
+              data-name="多功能清潔刷" data-price="250" data-img="pic/product4.png">清潔刷</button>
+          </div>
+
+          <!-- 操作按鈕 -->
+          <div class="d-flex gap-2 mb-2">
+            <button class="btn btn-primary flex-fill" id="add-to-cart">加入購物車</button>
+            <button class="btn btn-success flex-fill" onclick="window.open('https://line.me/ti/p/@899lielt', '_blank')">
+              💬 LINE 詢問
+            </button>
+          </div>
             
           </div>
         </div>
@@ -125,6 +126,10 @@
     </div>
   </div>
   
+  <section class="container-fluid d-flex flex-column justify-content-center align-items-center text-center" style="min-height: 20vh; background-color:#D8E6E7 ;">
+    <h1>職人手作的第一步</h1>
+    <p>磨豆開始，手沖之外，還有手感的儀式</p>
+  </section>
   
 
       <!-- 操作指南-->
@@ -237,7 +242,7 @@
           <img src="your-logo.png" alt="佑奕設計社 Logo">
         </div>
         <!-- 聯絡資訊 -->
-        <div class="footer-contact text-center text-md-end text-white">
+        <div class="footer-contact text-center text-md-end text-dark">
           <p><i class="bi bi-person-fill me-2"></i>姓名：林奕全</p>
           <p><i class="bi bi-telephone-fill me-2"></i>電話：<span style="font-weight: 500;">0968-365-510</span></p>
           <p><i class="bi bi-chat-dots-fill me-2"></i>LINE ID：<span style="font-weight: 500;">limdesign047@gmail.com</span></p>
@@ -260,23 +265,34 @@
       let currentItem = {
         name: '研磨壓萃咖啡組',
         price: 9800,
-        img: 'pic/product1.png'
+        img: 'pic/product1.png',
+        desc: '內容物：磨豆機+壓萃機+清潔刷'
       };
     
-      // 點圖片或按鈕都能切換商品
+      // 切換商品資訊與更新按鈕 active 狀態
       document.querySelectorAll('.change-item').forEach(el => {
         el.addEventListener('click', () => {
           currentItem.name = el.dataset.name;
           currentItem.price = parseInt(el.dataset.price);
+          currentItem.img = el.dataset.img;
+          currentItem.desc = el.dataset.desc || '';
     
-          // 如果有 data-img 就切換圖片
-          if (el.dataset.img) {
-            currentItem.img = el.dataset.img;
-            document.getElementById('product-img').src = currentItem.img;
-          }
-    
+          document.getElementById('product-img').src = currentItem.img;
           document.getElementById('product-name').textContent = currentItem.name;
           document.getElementById('product-price').textContent = currentItem.price;
+          document.getElementById('product-desc').textContent = currentItem.desc;
+    
+          // 移除所有 change-item 的 active class
+          document.querySelectorAll('.change-item').forEach(btn => btn.classList.remove('active'));
+          // 新增當前點擊元素 active class
+          el.classList.add('active');
+    
+          // 若是點小圖，找出對應的按鈕也加上 active
+          document.querySelectorAll('.change-item').forEach(btn => {
+            if (btn.tagName === 'BUTTON' && btn.dataset.name === currentItem.name) {
+              btn.classList.add('active');
+            }
+          });
         });
       });
     
@@ -291,8 +307,74 @@
         }
         localStorage.setItem('cart', JSON.stringify(cart));
         alert(`${currentItem.name} 已加入購物車`);
+        loadCart();
       });
+    
+      // 載入購物車
+      function loadCart() {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const container = document.getElementById('cart-items');
+        const total = document.getElementById('cart-total');
+        if (!container || !total) return;
+        container.innerHTML = '';
+        let sum = 0;
+    
+        if (cart.length === 0) {
+          container.innerHTML = '<p class="text-muted">購物車是空的。</p>';
+          total.textContent = '0';
+          return;
+        }
+    
+        cart.forEach((item, index) => {
+          const itemTotal = item.price * item.qty;
+          sum += itemTotal;
+          container.innerHTML += `
+            <div class="card mb-2">
+              <div class="card-body">
+                <h5>${item.name}</h5>
+                <p class="mb-1 text-muted">${item.desc || ''}</p>
+                <p>單價 NT$${item.price} x ${item.qty} = NT$${itemTotal}</p>
+                <button class="btn btn-sm btn-danger" onclick="removeItem(${index})">移除</button>
+              </div>
+            </div>`;
+        });
+        total.textContent = sum;
+      }
+    
+      // 移除購物車項目
+      function removeItem(index) {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart.splice(index, 1);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        loadCart();
+      }
+    
+      // 訂單送出
+      document.getElementById('checkout-form')?.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        if (cart.length === 0) return alert('購物車是空的');
+    
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const address = document.getElementById('address').value;
+        const total = document.getElementById('cart-total').textContent;
+        const items = cart.map(item => `${item.name} x${item.qty}`).join('\n');
+    
+        emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+          name, email, address, total, items
+        }).then(() => {
+          alert('✅ 訂單已送出！');
+          localStorage.removeItem('cart');
+          document.getElementById('checkout-form').reset();
+          loadCart();
+        }, err => alert('❌ 發送失敗：' + JSON.stringify(err)));
+      });
+    
+      loadCart();
     </script>
+    
+    
     
     
 </body>
