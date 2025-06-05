@@ -4,6 +4,15 @@ try {
   emailjs.init("YOUR_PUBLIC_KEY"); // ⬅️ 請換成你的 EmailJS 公鑰
 } catch (e) {}
 
+// 商品圖庫資料（供輪播使用）
+const productImages = [
+  { src: 'pic/product1.png', alt: '研磨壓萃咖啡組' },
+  { src: 'pic/product3.png', alt: '磨豆機G-works' },
+  { src: 'pic/product2.png', alt: '壓萃機E-works' },
+  { src: 'pic/product4.png', alt: 'PVD鍍膜粉杯' },
+  { src: 'pic/product1.png', alt: '多功能清潔刷' }
+];
+
 // 預設商品
 let currentItem = {
   name: '研磨壓萃咖啡組',
@@ -13,8 +22,9 @@ let currentItem = {
 };
 
 $(function () {
-  // 商品切換
+  // 切換商品 + 點小圖開啟輪播
   $('.change-item').on('click', function () {
+    // 更新商品資訊
     currentItem.name = $(this).data('name');
     currentItem.price = parseInt($(this).data('price'));
     currentItem.img = $(this).data('img');
@@ -27,6 +37,16 @@ $(function () {
 
     $('.change-item').removeClass('active');
     $(this).addClass('active');
+
+    // ➤ 點小圖後直接打開輪播並跳至對應圖片
+    const index = $('.change-item').index(this);
+    openImageCarousel(index);
+  });
+
+  // 點主圖也開啟輪播，並自動跳至 currentItem 所在圖片
+  $('#product-img').on('click', function () {
+    const index = productImages.findIndex(img => img.src === currentItem.img);
+    openImageCarousel(index);
   });
 
   // 加入購物車
@@ -72,7 +92,25 @@ $(function () {
   loadCart();
 });
 
-// 更新購物車徽章
+// ✅ 共用函式：開啟圖片燈箱輪播
+function openImageCarousel(activeIndex = 0) {
+  const $carousel = $('#carousel-images');
+  $carousel.empty();
+
+  productImages.forEach((img, i) => {
+    const activeClass = i === activeIndex ? 'active' : '';
+    $carousel.append(`
+      <div class="carousel-item ${activeClass}">
+        <img src="${img.src}" class="d-block w-100" style="object-fit: contain; max-height: 80vh;" alt="${img.alt}">
+      </div>
+    `);
+  });
+
+  const modal = new bootstrap.Modal(document.getElementById('imageModal'));
+  modal.show();
+}
+
+// 購物車徽章數量更新
 function updateCartCount() {
   const cart = JSON.parse(localStorage.getItem('cart')) || [];
   const count = cart.reduce((sum, item) => sum + item.qty, 0);
@@ -107,7 +145,8 @@ function loadCart() {
           <p>單價 NT$${item.price} x ${item.qty} = NT$${itemTotal}</p>
           <button class="btn btn-sm btn-danger remove-item" data-index="${index}">移除</button>
         </div>
-      </div>`);
+      </div>
+    `);
   });
 
   $total.text(sum);
