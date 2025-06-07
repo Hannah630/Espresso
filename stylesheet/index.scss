@@ -1,3 +1,8 @@
+body, h1, h2, h3, p, span, div {
+  font-family: 'Noto Serif TC', serif !important;
+}
+
+
 .banner {
   background: url('../pic/banner-com.png') center center / cover no-repeat;
   height: 600px; /* 可依圖片尺寸調整 */
@@ -114,6 +119,25 @@ max-width: 150px;
   background-clip: text;
   text-align: center;
   line-height: 1;
+}
+.coffee-section {
+  background-image: url('../pic/backgroud.svg'); 
+  background-repeat: repeat;
+  background-size: auto;
+  background-position: center;
+  min-height: 20vh;
+  overflow: hidden;
+}
+
+.coffee-section .overlay {
+  background-color: rgba(201, 176, 168, 0.4); /* 深灰遮罩 */
+  z-index: 1;
+}
+
+.coffee-section .content {
+  z-index: 2;
+  position: relative;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8); /* 加強白字可讀性 */
 }
 
 
