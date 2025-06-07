@@ -35,33 +35,44 @@
           </ul>
         </div>
       </nav>
-  <div class="container py-5">
-    <h2 class="mb-4">🛒 購物車結帳</h2>
 
-    <!-- 購物車內容 -->
-    <div id="cart-items" class="mb-4"></div>
-    <div class="text-end mb-4">
-      <h4>總金額：NT$ <span id="cart-total">0</span></h4>
-    </div>
+  <!-- 訂單列表區 -->
+<div id="cart-items" class="my-3 mx-5"></div>
 
-    <!-- 收件人表單 -->
-    <h4 class="mb-3">📦 收件人資料</h4>
-    <form id="checkout-form">
-      <div class="mb-3">
-        <label for="name" class="form-label">姓名</label>
-        <input type="text" class="form-control" id="name" required>
-      </div>
-      <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email" required>
-      </div>
-      <div class="mb-3">
-        <label for="address" class="form-label">地址</label>
-        <input type="text" class="form-control" id="address" required>
-      </div>
-      <button type="submit" class="btn btn-success">✅ 送出訂單</button>
-    </form>
+  <form id="checkout-form" class="container my-5">
+  <h3 class="mb-4">訂單資訊</h3>
+
+  <div class="mb-3">
+    <label for="name" class="form-label">姓名</label>
+    <input type="text" id="name" class="form-control" placeholder="請輸入您的姓名" required>
   </div>
+
+  <div class="mb-3">
+    <label for="phone" class="form-label">電話</label>
+    <input type="tel" id="phone" class="form-control" placeholder="0912-345-678" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="email" class="form-label">電子信箱</label>
+    <input type="email" id="email" class="form-control" placeholder="example@email.com" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="address" class="form-label">地址</label>
+    <input type="text" id="address" class="form-control" placeholder="台南市東區..." required>
+  </div>
+
+  <!-- 顯示購物車總金額 -->
+  <div class="mb-3">
+    <label class="form-label">總金額</label>
+    <p>NT$ <span id="cart-total">0</span></p>
+  </div>
+
+  <button type="submit" class="btn btn-primary">送出訂單</button>
+</form>
+
+
+
 
   <footer>
     <!-- 上方白底 Footer -->

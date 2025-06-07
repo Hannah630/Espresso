@@ -1,10 +1,11 @@
-// ✅ jQuery 版本 cart.js
 
 try {
-  emailjs.init("YOUR_PUBLIC_KEY"); // ⬅️ 請換成你的 EmailJS 公鑰
-} catch (e) {}
+  emailjs.init(EMAILJS_PUBLIC_KEY); // 來自 email-config.js
+} catch (e) {
+  console.error('EmailJS 初始化失敗', e);
+}
 
-// 商品圖庫資料（供輪播使用）
+// 商品圖片清單（順序需與小圖一致）
 const productImages = [
   { src: 'pic/product1.png', alt: '研磨壓萃咖啡組' },
   { src: 'pic/product3.png', alt: '磨豆機G-works' },
@@ -22,9 +23,8 @@ let currentItem = {
 };
 
 $(function () {
-  // 切換商品 + 點小圖開啟輪播
+  // ✅ 商品選項按鈕（只切換內容，不開燈箱）
   $('.change-item').on('click', function () {
-    // 更新商品資訊
     currentItem.name = $(this).data('name');
     currentItem.price = parseInt($(this).data('price'));
     currentItem.img = $(this).data('img');
@@ -37,19 +37,21 @@ $(function () {
 
     $('.change-item').removeClass('active');
     $(this).addClass('active');
+  });
 
-    // ➤ 點小圖後直接打開輪播並跳至對應圖片
-    const index = $('.change-item').index(this);
+  // ✅ 小縮圖點擊（只開燈箱，不切換商品資訊）
+  $('.product-thumbnail').on('click', function () {
+    const index = $('.product-thumbnail').index(this);
     openImageCarousel(index);
   });
 
-  // 點主圖也開啟輪播，並自動跳至 currentItem 所在圖片
+  // ✅ 主圖點擊（依照 currentItem 顯示）
   $('#product-img').on('click', function () {
     const index = productImages.findIndex(img => img.src === currentItem.img);
     openImageCarousel(index);
   });
 
-  // 加入購物車
+  // ✅ 加入購物車
   $('#add-to-cart').on('click', function () {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     const existing = cart.find(item => item.name === currentItem.name);
@@ -65,34 +67,43 @@ $(function () {
     alert(`${currentItem.name} 已加入購物車`);
   });
 
-  // 結帳表單提交
+  // ✅ 結帳表單提交
   $('#checkout-form').on('submit', function (e) {
     e.preventDefault();
+
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     if (cart.length === 0) return alert('購物車是空的');
 
     const name = $('#name').val();
+    const phone = $('#phone').val();
     const email = $('#email').val();
     const address = $('#address').val();
     const total = $('#cart-total').text();
     const items = cart.map(item => `${item.name} x${item.qty}`).join('\n');
 
-    emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
-      name, email, address, total, items
+    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+      name,
+      phone,
+      email,
+      address,
+      total,
+      items
     }).then(() => {
       alert('✅ 訂單已送出！');
       localStorage.removeItem('cart');
       $('#checkout-form')[0].reset();
-      loadCart();
+      $('#cart-items').empty().html('<p class="text-success">感謝您的訂購！</p>');
       updateCartCount();
-    }, err => alert('❌ 發送失敗：' + JSON.stringify(err)));
+    }, err => {
+      alert('❌ 發送失敗：' + JSON.stringify(err));
+    });
   });
 
   updateCartCount();
   loadCart();
 });
 
-// ✅ 共用函式：開啟圖片燈箱輪播
+// ✅ 燈箱輪播打開
 function openImageCarousel(activeIndex = 0) {
   const $carousel = $('#carousel-images');
   $carousel.empty();
@@ -110,14 +121,14 @@ function openImageCarousel(activeIndex = 0) {
   modal.show();
 }
 
-// 購物車徽章數量更新
+// ✅ 更新購物車數量徽章
 function updateCartCount() {
   const cart = JSON.parse(localStorage.getItem('cart')) || [];
   const count = cart.reduce((sum, item) => sum + item.qty, 0);
   $('#cart-count').text(count);
 }
 
-// 載入購物車內容
+// ✅ 載入購物車內容
 function loadCart() {
   const cart = JSON.parse(localStorage.getItem('cart')) || [];
   const $container = $('#cart-items');
@@ -151,10 +162,8 @@ function loadCart() {
 
   $total.text(sum);
 
-  // 綁定移除按鈕
   $('.remove-item').on('click', function () {
     const index = $(this).data('index');
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
     cart.splice(index, 1);
     localStorage.setItem('cart', JSON.stringify(cart));
     loadCart();

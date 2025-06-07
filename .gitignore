@@ -1,0 +1,39 @@
+# 建立一個標準的 .gitignore 檔案內容，適用於前端專案
+gitignore_content = """
+# 忽略 EmailJS 金鑰設定檔
+js/email-config.js
+
+# Node modules
+node_modules/
+
+# 編譯輸出資料夾
+dist/
+build/
+
+# 作業系統產生的檔案
+.DS_Store
+Thumbs.db
+
+# log 檔案
+*.log
+
+# 環境設定檔
+.env
+
+# Vite / Webpack cache
+.vite/
+.cache/
+
+# 忽略 IDE 設定檔（如 VSCode）
+.vscode/
+
+# macOS Finder metadata
+*.DS_Store
+"""
+
+# 將 .gitignore 檔案儲存
+gitignore_path = "/mnt/data/.gitignore"
+with open(gitignore_path, "w") as f:
+    f.write(gitignore_content)
+
+gitignore_path
