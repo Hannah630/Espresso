@@ -1,4 +1,5 @@
 
+
 try {
   emailjs.init(EMAILJS_PUBLIC_KEY); // 來自 email-config.js
 } catch (e) {
@@ -81,14 +82,15 @@ $(function () {
     const total = $('#cart-total').text();
     const items = cart.map(item => `${item.name} x${item.qty}`).join('\n');
 
-    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+    emailjs.send("order_to_boss", "template_z1plu8z", {
       name,
       phone,
       email,
       address,
       total,
       items
-    }).then(() => {
+    })
+    .then(() => {
       alert('✅ 訂單已送出！');
       localStorage.removeItem('cart');
       $('#checkout-form')[0].reset();
