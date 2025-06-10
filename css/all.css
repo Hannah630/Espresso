@@ -112,18 +112,26 @@ body, h1, h2, h3, p, span, div {
   margin-bottom: 0.5rem;
 }
 
-.image-text {
-  font-size: 160px;
-  font-weight: 800;
-  font-family: "Anton", sans-serif;
-  background-image: url("../pic/sbackground.jpg"); /* 你的圖片 */
-  background-size: contain;
+.image-text-wrapper {
+  display: inline-block;
+  font-size: 200px;
+  font-weight: 700;
+  font-family: "Sigmar One", sans-serif !important;
+  background-image: url("../pic/sbackground.jpg");
+  background-size: cover; /* 或 try contain 看效果 */
   background-position: center;
   color: transparent;
-  -webkit-background-clip: text; /* Safari / Chrome */
+  -webkit-background-clip: text;
   background-clip: text;
   text-align: center;
   line-height: 1;
+}
+
+.image-text {
+  background: none;
+  -webkit-background-clip: inherit;
+  background-clip: inherit;
+  color: inherit;
 }
 
 .coffee-section {
@@ -136,14 +144,14 @@ body, h1, h2, h3, p, span, div {
 }
 
 .coffee-section .overlay {
-  background-color: rgba(119, 145, 157, 0.4); /* 深灰遮罩 */
+  background-color: rgba(12, 43, 47, 0.8); /* 深灰遮罩 */
   z-index: 1;
 }
 
 .coffee-section .content {
   z-index: 2;
   position: relative;
-  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8); /* 加強白字可讀性 */
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.9); /* 加強白字可讀性 */
 }
 
 body {
@@ -211,4 +219,37 @@ body {
   .image-text {
     font-size: 10rem;
   }
+}
+.typewriter-text {
+  font-family: "Noto Serif TC", serif;
+  font-weight: bold;
+  font-size: 2rem;
+  white-space: nowrap;
+  border-right: 2px solid #000;
+  width: 0;
+  animation: typing 2.5s steps(20, end) forwards, blink 0.7s step-end infinite;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}
+.product-thumbnail:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:active {
+  transform: scale(0.97);
+  transition: transform 0.1s ease;
 }
