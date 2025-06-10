@@ -5,10 +5,11 @@ body, h1, h2, h3, p, span, div {
 
 .banner {
   background: url('../pic/banner-com.png') center center / cover no-repeat;
-  height: 600px; /* 可依圖片尺寸調整 */
+  height: 700px; /* 可依圖片尺寸調整 */
   position: relative;
   color: white;
   padding: 20px;
+  background-attachment: fixed;
 }
 
 .banner-content {
@@ -160,6 +161,7 @@ body {
   .banner {
     background: url('../pic/banner-mobile.png') no-repeat center center !important;
     background-size: cover !important;
+    background-attachment: scroll; /* ✅ 手機不啟用視差 */
   }
   .banner-content {
     left: 50%;
@@ -203,6 +205,7 @@ body {
     height: 500px;
     padding: 80px 30px;
     background: url('../pic/banner-com.png') center center / cover no-repeat;
+    background-attachment: scroll; /* ✅ 手機不啟用視差 */
   }
 
   .banner-content {
