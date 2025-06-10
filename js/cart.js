@@ -9,6 +9,7 @@ try {
 // 商品圖片清單（順序需與小圖一致）
 const productImages = [
   { src: 'pic/product1.png', alt: '研磨壓萃咖啡組' },
+  { src: 'pic/product6.png', alt: '研磨壓萃咖啡組' },
   { src: 'pic/product3.png', alt: '磨豆機G-works' },
   { src: 'pic/product2.png', alt: '壓萃機E-works' },
   { src: 'pic/product4.png', alt: 'PVD鍍膜粉杯' },

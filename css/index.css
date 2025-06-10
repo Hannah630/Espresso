@@ -145,7 +145,7 @@ body, h1, h2, h3, p, span, div {
 }
 
 .coffee-section .overlay {
-  background-color: rgba(12, 43, 47, 0.8); /* 深灰遮罩 */
+  background-color: rgba(20, 32, 42, 0.9); /* 深灰遮罩 */
   z-index: 1;
 }
 
