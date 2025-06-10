@@ -12,7 +12,7 @@ const productImages = [
   { src: 'pic/product3.png', alt: '磨豆機G-works' },
   { src: 'pic/product2.png', alt: '壓萃機E-works' },
   { src: 'pic/product4.png', alt: 'PVD鍍膜粉杯' },
-  { src: 'pic/product1.png', alt: '多功能清潔刷' }
+  { src: 'pic/product5.png', alt: '多功能清潔刷' }
 ];
 
 // 預設商品
@@ -40,11 +40,27 @@ $(function () {
     $(this).addClass('active');
   });
 
-  // ✅ 小縮圖點擊（只開燈箱，不切換商品資訊）
-  $('.product-thumbnail').on('click', function () {
-    const index = $('.product-thumbnail').index(this);
-    openImageCarousel(index);
-  });
+$('.product-thumbnail').on('click', function () {
+  const name = $(this).data('name');
+  const price = parseInt($(this).data('price'));
+  const img = $(this).data('img');
+  const desc = $(this).data('desc') || '';
+
+  // 更新畫面與 currentItem
+  currentItem = { name, price, img, desc };
+  $('#product-img').attr('src', img);
+  $('#product-name').text(name);
+  $('#product-price').text(price);
+  $('#product-desc').text(desc);
+
+  // 移除選項 active 樣式（避免右邊按鈕誤導）
+  $('.change-item').removeClass('active');
+
+  // 開啟燈箱
+  const index = productImages.findIndex(p => p.src === img);
+  openImageCarousel(index);
+});
+
 
   // ✅ 主圖點擊（依照 currentItem 顯示）
   $('#product-img').on('click', function () {
