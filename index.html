@@ -33,10 +33,10 @@
           <a class="nav-link active" href="index.html">首頁</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="index.html">產品說明</a>
+          <a class="nav-link active" href="#about">產品說明</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="index.html">聯絡我們</a>
+          <a class="nav-link active" href="#contact">聯絡我們</a>
         </li>
         <li class="nav-item position-relative">
           <a class="nav-link active" href="checkout.html">
@@ -195,13 +195,13 @@
 
 
 
-  <section class="coffee-section position-relative">
+  <section class="coffee-section position-relative" id="about">
   <!-- 遮罩 -->
   <div class="overlay position-absolute top-0 start-0 w-100 h-100"></div>
   <!-- 文字內容 -->
   <div class="content position-relative text-white text-center py-5">
     <h1 class="display-5 fw-bold" data-aos="zoom-in-up">職人手作的第一步</h1>
-    <p class="h6 fw-bold" data-aos="fade-up">磨豆開始，手沖之外，還有手感的儀式</p>
+    <p class="h6 fw-bold" data-aos="fade-up">磨豆開始，手沖之外，還有手感的義式</p>
   </div>
   </section>
 
@@ -209,7 +209,7 @@
   
 
   <!-- 操作指南-->
-  <section class="container py-5" id="about">
+  <section class="container py-5">
     <div class="row align-items-center">
       <div class="col-md-4 order-md-1 text-center text-md-start">
       <div class="image-text-wrapper" data-aos="zoom-in-right">01</div>
@@ -319,10 +319,13 @@
       </div>
     </div>
       </section>
+    <!-- 懸浮購物車圖示 -->
+    <div class="floating-cart" onclick="goToCart()">
+      <i class="bi bi-cart-fill"></i>
+      <span class="cart-count" id="cart-count">0</span> <!-- ← 這個必須有！ -->
+    </div>
 
 
-
-      
       
 <footer>
   <!-- 上方白底 Footer -->
@@ -337,8 +340,8 @@
         <div class="footer-contact text-light">
           <p><i class="bi bi-person-fill me-2"></i>姓名：林奕全</p>
           <p><i class="bi bi-telephone-fill me-2"></i>電話：<span style="font-weight: 500;">0968-365-510</span></p>
-          <p><i class="bi bi-chat-dots-fill me-2"></i>LINE ID：<span style="font-weight: 500;">limdesign047@gmail.com</span></p>
-          <p><i class="bi bi-geo-alt-fill me-2"></i>地址：彰化縣埔心鄉東門村新興路44巷15號</p>
+          <p><i class="bi bi-chat-dots-fill me-2"></i>LINE ID：<span style="font-weight: 500;">@899lielt</span></p>
+          <p><i class="bi bi-geo-alt-fill me-2"></i>地址：彰化縣埔心鄉</p>
         </div>
       </div>
     </div>
@@ -375,6 +378,7 @@
     </div>
   </div>
 </div>
+
 <script src="js/email-config.js"></script>
 <script src="js/cart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
@@ -400,6 +404,11 @@
     typeChar();
   });
 </script>
+ <script>
+    $(function () {
+      updateCartCount(); // ✅ 頁面一進來就更新數字
+    });
+  </script>
 
 
 </body>

@@ -1,12 +1,9 @@
-
-
 try {
   emailjs.init(EMAILJS_PUBLIC_KEY); // 來自 email-config.js
 } catch (e) {
   console.error('EmailJS 初始化失敗', e);
 }
 
-// 商品圖片清單（順序需與小圖一致）
 const productImages = [
   { src: 'pic/product1.png', alt: '研磨壓萃咖啡組' },
   { src: 'pic/product6.png', alt: '研磨壓萃咖啡組' },
@@ -16,7 +13,6 @@ const productImages = [
   { src: 'pic/product5.png', alt: '多功能清潔刷' }
 ];
 
-// 預設商品
 let currentItem = {
   name: '研磨壓萃咖啡組',
   price: 9800,
@@ -25,7 +21,7 @@ let currentItem = {
 };
 
 $(function () {
-  // ✅ 商品選項按鈕（只切換內容，不開燈箱）
+  // 商品選擇按鈕
   $('.change-item').on('click', function () {
     currentItem.name = $(this).data('name');
     currentItem.price = parseInt($(this).data('price'));
@@ -41,35 +37,32 @@ $(function () {
     $(this).addClass('active');
   });
 
-$('.product-thumbnail').on('click', function () {
-  const name = $(this).data('name');
-  const price = parseInt($(this).data('price'));
-  const img = $(this).data('img');
-  const desc = $(this).data('desc') || '';
+  // 點小圖進燈箱
+  $('.product-thumbnail').on('click', function () {
+    const name = $(this).data('name');
+    const price = parseInt($(this).data('price'));
+    const img = $(this).data('img');
+    const desc = $(this).data('desc') || '';
 
-  // 更新畫面與 currentItem
-  currentItem = { name, price, img, desc };
-  $('#product-img').attr('src', img);
-  $('#product-name').text(name);
-  $('#product-price').text(price);
-  $('#product-desc').text(desc);
+    currentItem = { name, price, img, desc };
+    $('#product-img').attr('src', img);
+    $('#product-name').text(name);
+    $('#product-price').text(price);
+    $('#product-desc').text(desc);
 
-  // 移除選項 active 樣式（避免右邊按鈕誤導）
-  $('.change-item').removeClass('active');
+    $('.change-item').removeClass('active');
 
-  // 開啟燈箱
-  const index = productImages.findIndex(p => p.src === img);
-  openImageCarousel(index);
-});
+    const index = productImages.findIndex(p => p.src === img);
+    openImageCarousel(index);
+  });
 
-
-  // ✅ 主圖點擊（依照 currentItem 顯示）
+  // 主圖點擊開燈箱
   $('#product-img').on('click', function () {
     const index = productImages.findIndex(img => img.src === currentItem.img);
     openImageCarousel(index);
   });
 
-  // ✅ 加入購物車
+  // 加入購物車
   $('#add-to-cart').on('click', function () {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     const existing = cart.find(item => item.name === currentItem.name);
@@ -85,7 +78,7 @@ $('.product-thumbnail').on('click', function () {
     alert(`${currentItem.name} 已加入購物車`);
   });
 
-  // ✅ 結帳表單提交
+  // 結帳送出表單
   $('#checkout-form').on('submit', function (e) {
     e.preventDefault();
 
@@ -100,14 +93,8 @@ $('.product-thumbnail').on('click', function () {
     const items = cart.map(item => `${item.name} x${item.qty}`).join('\n');
 
     emailjs.send("order_to_boss", "template_z1plu8z", {
-      name,
-      phone,
-      email,
-      address,
-      total,
-      items
-    })
-    .then(() => {
+      name, phone, email, address, total, items
+    }).then(() => {
       alert('✅ 訂單已送出！');
       localStorage.removeItem('cart');
       $('#checkout-form')[0].reset();
@@ -118,11 +105,11 @@ $('.product-thumbnail').on('click', function () {
     });
   });
 
+  // 初始化
   updateCartCount();
   loadCart();
 });
 
-// ✅ 燈箱輪播打開
 function openImageCarousel(activeIndex = 0) {
   const $carousel = $('#carousel-images');
   $carousel.empty();
@@ -144,7 +131,17 @@ function openImageCarousel(activeIndex = 0) {
 function updateCartCount() {
   const cart = JSON.parse(localStorage.getItem('cart')) || [];
   const count = cart.reduce((sum, item) => sum + item.qty, 0);
-  $('#cart-count').text(count);
+
+  const $cartCount = $('#cart-count');
+  if ($cartCount.length) {
+    $cartCount.text(count);
+  }
+}
+
+
+// ✅ 懸浮購物車圖示跳轉
+function goToCart() {
+  window.location.href = 'checkout.html';
 }
 
 // ✅ 載入購物車內容
