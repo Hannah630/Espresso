@@ -127,16 +127,14 @@ function openImageCarousel(activeIndex = 0) {
   modal.show();
 }
 
-// ✅ 更新購物車數量徽章
 function updateCartCount() {
   const cart = JSON.parse(localStorage.getItem('cart')) || [];
   const count = cart.reduce((sum, item) => sum + item.qty, 0);
 
-  const $cartCount = $('#cart-count');
-  if ($cartCount.length) {
-    $cartCount.text(count);
-  }
+  $('#cart-count').text(count);
+  $('#floating-cart-count').text(count); // ✅ 同步更新懸浮的
 }
+
 
 
 // ✅ 懸浮購物車圖示跳轉
