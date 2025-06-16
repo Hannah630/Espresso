@@ -78,32 +78,29 @@ $(function () {
     alert(`${currentItem.name} 已加入購物車`);
   });
 
-  // 結帳送出表單
-  $('#checkout-form').on('submit', function (e) {
-    e.preventDefault();
+  // ✅ 改這段
+fetch('https://你的-railway-backend-url.up.railway.app/api/order', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    name, phone, email, address, total, items
+  })
+})
+.then(res => {
+  if (!res.ok) throw new Error('伺服器錯誤');
+  return res.json();
+})
+.then(data => {
+  alert('✅ 訂單已送出！');
+  localStorage.removeItem('cart');
+  $('#checkout-form')[0].reset();
+  $('#cart-items').empty().html('<p class="text-success">感謝您的訂購！</p>');
+  updateCartCount();
+})
+.catch(err => {
+  alert('❌ 發送失敗：' + err.message);
+});
 
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    if (cart.length === 0) return alert('購物車是空的');
-
-    const name = $('#name').val();
-    const phone = $('#phone').val();
-    const email = $('#email').val();
-    const address = $('#address').val();
-    const total = $('#cart-total').text();
-    const items = cart.map(item => `${item.name} x${item.qty}`).join('\n');
-
-    emailjs.send("order_to_boss", "template_z1plu8z", {
-      name, phone, email, address, total, items
-    }).then(() => {
-      alert('✅ 訂單已送出！');
-      localStorage.removeItem('cart');
-      $('#checkout-form')[0].reset();
-      $('#cart-items').empty().html('<p class="text-success">感謝您的訂購！</p>');
-      updateCartCount();
-    }, err => {
-      alert('❌ 發送失敗：' + JSON.stringify(err));
-    });
-  });
 
   // 初始化
   updateCartCount();
