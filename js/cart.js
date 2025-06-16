@@ -88,7 +88,7 @@ $(function () {
     const total = $('#cart-total').text();
     const items = cart.map(item => `${item.name} x${item.qty}`).join('\n');
 
-    fetch('https://backend-5rze.onrender.com/api/order', {
+    fetch('https://backend-5rze.onrender.com', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, phone, email, address, total, items })
