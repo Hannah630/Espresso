@@ -1,3 +1,4 @@
+
 try {
   emailjs.init(EMAILJS_PUBLIC_KEY); // 來自 email-config.js
 } catch (e) {
@@ -21,7 +22,6 @@ let currentItem = {
 };
 
 $(function () {
-  // 商品選擇按鈕
   $('.change-item').on('click', function () {
     currentItem.name = $(this).data('name');
     currentItem.price = parseInt($(this).data('price'));
@@ -37,7 +37,6 @@ $(function () {
     $(this).addClass('active');
   });
 
-  // 點小圖進燈箱
   $('.product-thumbnail').on('click', function () {
     const name = $(this).data('name');
     const price = parseInt($(this).data('price'));
@@ -56,13 +55,11 @@ $(function () {
     openImageCarousel(index);
   });
 
-  // 主圖點擊開燈箱
   $('#product-img').on('click', function () {
     const index = productImages.findIndex(img => img.src === currentItem.img);
     openImageCarousel(index);
   });
 
-  // 加入購物車
   $('#add-to-cart').on('click', function () {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     const existing = cart.find(item => item.name === currentItem.name);
@@ -78,31 +75,40 @@ $(function () {
     alert(`${currentItem.name} 已加入購物車`);
   });
 
-  // ✅ 改這段
-fetch('https://你的-railway-backend-url.up.railway.app/api/order', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    name, phone, email, address, total, items
-  })
-})
-.then(res => {
-  if (!res.ok) throw new Error('伺服器錯誤');
-  return res.json();
-})
-.then(data => {
-  alert('✅ 訂單已送出！');
-  localStorage.removeItem('cart');
-  $('#checkout-form')[0].reset();
-  $('#cart-items').empty().html('<p class="text-success">感謝您的訂購！</p>');
-  updateCartCount();
-})
-.catch(err => {
-  alert('❌ 發送失敗：' + err.message);
-});
+  $('#checkout-form').on('submit', function (e) {
+    e.preventDefault();
 
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    if (cart.length === 0) return alert('購物車是空的');
 
-  // 初始化
+    const name = $('#name').val();
+    const phone = $('#phone').val();
+    const email = $('#email').val();
+    const address = $('#address').val();
+    const total = $('#cart-total').text();
+    const items = cart.map(item => `${item.name} x${item.qty}`).join('\n');
+
+    fetch('https://backend-5rze.onrender.com/api/order', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, phone, email, address, total, items })
+    })
+    .then(res => {
+      if (!res.ok) throw new Error('伺服器錯誤');
+      return res.json();
+    })
+    .then(() => {
+      alert('✅ 訂單已送出！');
+      localStorage.removeItem('cart');
+      $('#checkout-form')[0].reset();
+      $('#cart-items').html('<p class="text-success">感謝您的訂購！</p>');
+      updateCartCount();
+    })
+    .catch(err => {
+      alert('❌ 發送失敗：' + err.message);
+    });
+  });
+
   updateCartCount();
   loadCart();
 });
@@ -129,17 +135,13 @@ function updateCartCount() {
   const count = cart.reduce((sum, item) => sum + item.qty, 0);
 
   $('#cart-count').text(count);
-  $('#floating-cart-count').text(count); // ✅ 同步更新懸浮的
+  $('#floating-cart-count').text(count);
 }
 
-
-
-// ✅ 懸浮購物車圖示跳轉
 function goToCart() {
   window.location.href = 'checkout.html';
 }
 
-// ✅ 載入購物車內容
 function loadCart() {
   const cart = JSON.parse(localStorage.getItem('cart')) || [];
   const $container = $('#cart-items');
