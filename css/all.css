@@ -5,7 +5,7 @@ body, h1, h2, h3, p, span, div {
 
 .banner {
   background: url("../pic/banner-com.png") center center/cover no-repeat;
-  height: 500px; /* 可依圖片尺寸調整 */
+  height: 500px;
   position: relative;
   color: white;
   padding: 20px;
@@ -25,7 +25,7 @@ body, h1, h2, h3, p, span, div {
 .banner h1 {
   font-size: 2rem;
   margin-bottom: 10px;
-  white-space: nowrap; /* ✅ 強制不換行 */
+  white-space: nowrap; /* 強制不換行 */
 }
 
 .banner p {
@@ -54,9 +54,9 @@ body, h1, h2, h3, p, span, div {
   right: 0;
   padding: 6px 20px 6px 40px;
   background: rgba(255, 255, 255, 0.5);
-  color: #1d1d1d; /* ✅ 文字換深色比較清楚 */
+  color: #1d1d1d;
   font-weight: bold;
-  font-size: 16px; /* ✅ 稍大字體 */
+  font-size: 16px;
   z-index: 10;
   display: flex;
   align-items: center;
@@ -65,14 +65,14 @@ body, h1, h2, h3, p, span, div {
 }
 
 .angled-logo img {
-  width: 70px; /* ✅ logo 放大 */
-  height: 70px; /* ✅ 保持比例 */
-  margin-right: 10px; /* ✅ logo 與文字間距縮小 */
+  width: 70px;
+  height: 70px;
+  margin-right: 10px;
 }
 
 .angled-logo span {
   line-height: 1.4;
-  font-size: 16px; /* ✅ 或依需求調大 */
+  font-size: 16px;
 }
 
 .card {
@@ -98,7 +98,7 @@ body, h1, h2, h3, p, span, div {
 }
 
 .footer-bottom {
-  background-color: #0d1321; /* 可依照你主色調調整 */
+  background-color: #0d1321;
   color: #ffffff;
   font-size: 0.9rem;
   text-align: center;
@@ -124,7 +124,7 @@ body, h1, h2, h3, p, span, div {
   font-weight: 700;
   font-family: "Sigmar One", sans-serif !important;
   background-image: url("../pic/sbackground.jpg");
-  background-size: cover; /* 或 try contain 看效果 */
+  background-size: cover;
   background-position: center;
   color: transparent;
   -webkit-background-clip: text;
@@ -150,7 +150,7 @@ body, h1, h2, h3, p, span, div {
 }
 
 .coffee-section .overlay {
-  background-color: rgba(13, 19, 33, 0.9); /* 深灰遮罩 */
+  background-color: rgba(13, 19, 33, 0.9);
   z-index: 1;
 }
 
@@ -232,7 +232,7 @@ body {
     font-size: 1rem;
   }
   .angled-logo {
-    top: 10px; /* ✅ 加 px */
+    top: 10px;
     padding: 6px 12px 6px 24px;
     font-size: 14px;
   }
