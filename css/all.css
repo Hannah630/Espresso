@@ -140,7 +140,11 @@ body, h1, h2, h3, p, span, div {
 }
 
 .coffee-section {
-  background-image: url("../pic/backgroud.svg");
+   background-image: linear-gradient(
+      rgba(255, 255, 255, 0.25),
+      rgba(255, 255, 255, 0.25)
+    ),
+    url("../pic/nature.jpg");
   background-repeat: repeat;
   background-size: cover;
   background-position: center;
@@ -148,10 +152,10 @@ body, h1, h2, h3, p, span, div {
   overflow: hidden;
 }
 
-.coffee-section .overlay {
+/* .coffee-section .overlay {
   background-color: rgba(13, 19, 33, 0.9);
   z-index: 1;
-}
+} */
 
 .coffee-section .content {
   z-index: 2;
@@ -161,22 +165,15 @@ body, h1, h2, h3, p, span, div {
 
 .darkblue {
   position: relative;
-  background-image: url("../pic/backgroud2.svg"); /* 確認路徑拼字正確 */
-  background-repeat: repeat;
-  background-size: auto;
+  background-image: linear-gradient(rgba(255,255,255,0.65), rgba(255,255,255,0.65)), 
+                    url("../pic/nature.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
   background-position: center;
   overflow: hidden;
 }
 
-.darkblue .overlaytop {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(240, 235, 216, 0.8);
-  z-index: 1;
-}
+
 
 .darkblue .content-wrapper {
   position: relative;

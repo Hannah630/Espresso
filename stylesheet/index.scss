@@ -150,7 +150,11 @@ div {
 
 /* ===== Coffee Section ===== */
 .coffee-section {
-  background-image: url("../pic/backgroud.svg");
+   background-image: linear-gradient(
+      rgba(255, 255, 255, 0.2),
+      rgba(255, 255, 255, 0.2)
+    ),
+    url("../pic/nature.jpg");
   background-repeat: repeat;
   background-size: cover;
   background-position: center;
@@ -172,9 +176,13 @@ div {
 /* ===== Dark Blue Section ===== */
 .darkblue {
   position: relative;
-  background-image: url("../pic/nature.jpg");
-  background-repeat: repeat;
-  background-size: auto;
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.85),
+      rgba(255, 255, 255, 0.85)
+    ),
+    url("../pic/nature.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
   background-position: center;
   overflow: hidden;
 }
@@ -331,12 +339,18 @@ body {
 }
 
 @keyframes typing {
-  from { width: 0; }
-  to { width: 100%; }
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
 }
 
 @keyframes blink {
-  50% { border-color: transparent; }
+  50% {
+    border-color: transparent;
+  }
 }
 
 /* ===== Hover / Click Effects ===== */
