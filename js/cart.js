@@ -1,159 +1,116 @@
+console.log("✅ cart.js 已載入");
+// =============================
+// EmailJS 初始化 (有用到才留)
+// =============================
 try {
   emailjs.init(EMAILJS_PUBLIC_KEY); // 來自 email-config.js
 } catch (e) {
   console.error("EmailJS 初始化失敗", e);
 }
 
-const productImages = [
-  { src: "pic/product1.png", alt: "研磨壓萃咖啡組" },
-  { src: "pic/product6.png", alt: "研磨壓萃咖啡組" },
-  { src: "pic/product3.png", alt: "磨豆機G-works" },
-  { src: "pic/product2.png", alt: "壓萃機E-works" },
-  { src: "pic/product4.png", alt: "PVD鍍膜粉杯" },
-  { src: "pic/product5.png", alt: "多功能清潔刷" },
-  { src: "pic/product6.png", alt: "多功能清潔刷" },
-  { src: "pic/product7.png", alt: "多功能清潔刷" },
-];
+// =============================
+// 加入購物車邏輯 (事件委派，避免動態按鈕綁不到)
+// =============================
+$(document).on("click", ".add-to-cart", function () {
+  const name = $(this).data("name");
+  const price = parseInt($(this).data("price"), 10);
+  const img = $(this).data("img");
+  const desc = $(this).data("desc") || "";
 
-let currentItem = {
-  name: "研磨壓萃咖啡組",
-  price: 9800,
-  img: "pic/product1.png",
-  desc: "內容物：磨豆機+壓萃機+清潔刷",
-};
+  const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+  const existing = cart.find((item) => item.name === name);
 
-$(function () {
-  $(".change-item").on("click", function () {
-    currentItem.name = $(this).data("name");
-    currentItem.price = parseInt($(this).data("price"));
-    currentItem.img = $(this).data("img");
-    currentItem.desc = $(this).data("desc") || "";
+  if (existing) {
+    existing.qty++;
+  } else {
+    cart.push({ name, price, img, desc, qty: 1 });
+  }
 
-    $("#product-img").attr("src", currentItem.img);
-    $("#product-name").text(currentItem.name);
-    $("#product-price").text(currentItem.price);
-    $("#product-desc").text(currentItem.desc);
-
-    $(".change-item").removeClass("active");
-    $(this).addClass("active");
-  });
-
-  $(".product-thumbnail").on("click", function () {
-    const name = $(this).data("name");
-    const price = parseInt($(this).data("price"));
-    const img = $(this).data("img");
-    const desc = $(this).data("desc") || "";
-
-    currentItem = { name, price, img, desc };
-    $("#product-img").attr("src", img);
-    $("#product-name").text(name);
-    $("#product-price").text(price);
-    $("#product-desc").text(desc);
-
-    $(".change-item").removeClass("active");
-
-    const index = productImages.findIndex((p) => p.src === img);
-    openImageCarousel(index);
-  });
-
-  $("#product-img").on("click", function () {
-    const index = productImages.findIndex((img) => img.src === currentItem.img);
-    openImageCarousel(index);
-  });
-
-  $("#add-to-cart").on("click", function () {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const existing = cart.find((item) => item.name === currentItem.name);
-
-    if (existing) {
-      existing.qty++;
-    } else {
-      cart.push({ ...currentItem, qty: 1 });
-    }
-
-    localStorage.setItem("cart", JSON.stringify(cart));
-    updateCartCount();
-    alert(`${currentItem.name} 已加入購物車`);
-  });
-
-  $("#checkout-form").on("submit", function (e) {
-    e.preventDefault();
-
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    if (cart.length === 0) return alert("購物車是空的");
-
-    const name = $("#name").val();
-    const phone = $("#phone").val();
-    const email = $("#email").val();
-    const address = $("#address").val();
-    const total = $("#cart-total").text();
-    const items = cart.map((item) => `${item.name} x${item.qty}`).join("\n");
-
-    fetch("https://backend-5rze.onrender.com/api/order", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, phone, email, address, total, items }),
-    })
-      .then((res) => {
-        if (!res.ok) throw new Error("伺服器錯誤");
-        return res.json();
-      })
-      .then(() => {
-        alert("✅ 訂單已送出！");
-        localStorage.removeItem("cart");
-        $("#checkout-form")[0].reset();
-        $("#cart-items").html('<p class="text-success">感謝您的訂購！</p>');
-        updateCartCount();
-      })
-      .catch((err) => {
-        alert("❌ 發送失敗：" + err.message);
-      });
-  });
-
+  localStorage.setItem("cart", JSON.stringify(cart));
   updateCartCount();
-  loadCart();
+  loadCart(); // ✅ 立刻刷新 checkout 畫面
+
+  // Toast 提示
+  showCartToast(`${name} 已加入購物車`);
 });
 
-function openImageCarousel(activeIndex = 0) {
-  const $carousel = $("#carousel-images");
-  $carousel.empty();
-
-  productImages.forEach((img, i) => {
-    const activeClass = i === activeIndex ? "active" : "";
-    $carousel.append(`
-      <div class="carousel-item ${activeClass}">
-        <img src="${img.src}" class="d-block w-100" style="object-fit: contain; max-height: 80vh;" alt="${img.alt}">
-      </div>
-    `);
-  });
-
-  const modal = new bootstrap.Modal(document.getElementById("imageModal"));
-  modal.show();
+// =============================
+// 顯示 Bootstrap Toast
+// =============================
+function showCartToast(message) {
+  $("#cart-toast-msg").text(message);
+  const toastEl = document.getElementById("cartToast");
+  if (toastEl) {
+    const toast = new bootstrap.Toast(toastEl, { delay: 2000 });
+    toast.show();
+  }
 }
 
+// =============================
+// Checkout 表單送出
+// =============================
+$("#checkout-form").on("submit", function (e) {
+  e.preventDefault();
+
+  const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+  if (cart.length === 0) {
+    return alert("購物車是空的");
+  }
+
+  const name = $("#name").val();
+  const phone = $("#phone").val();
+  const email = $("#email").val();
+  const address = $("#address").val();
+  const total = $("#cart-total").text();
+  const items = cart.map((item) => `${item.name} x${item.qty}`).join("\n");
+
+  fetch("https://backend-5rze.onrender.com/api/order", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name, phone, email, address, total, items }),
+  })
+    .then((res) => {
+      if (!res.ok) throw new Error("伺服器錯誤");
+      return res.json();
+    })
+    .then(() => {
+      alert("訂單已送出！");
+      localStorage.removeItem("cart");
+      $("#checkout-form")[0].reset();
+      $("#cart-items").html('<p class="text-success">感謝您的訂購！</p>');
+      updateCartCount();
+    })
+    .catch((err) => {
+      alert("❌ 發送失敗：" + err.message);
+    });
+});
+
+// =============================
+// 更新購物車數字
+// =============================
 function updateCartCount() {
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const cart = JSON.parse(localStorage.getItem("cart") || "[]");
   const count = cart.reduce((sum, item) => sum + item.qty, 0);
 
   $("#cart-count").text(count);
   $("#floating-cart-count").text(count);
 }
 
-function goToCart() {
-  window.location.href = "checkout.html";
-}
-
+// =============================
+// 載入購物車內容 (checkout 頁用)
+// =============================
 function loadCart() {
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const cart = JSON.parse(localStorage.getItem("cart") || "[]");
   const $container = $("#cart-items");
   const $total = $("#cart-total");
+
   if (!$container.length || !$total.length) return;
 
   $container.empty();
   let sum = 0;
 
   if (cart.length === 0) {
-    $container.html('<p class="text-muted">購物車是空的。</p>');
+    $container.html('<p class="text-muted text-center">購物車是空的。</p>');
     $total.text("0");
     return;
   }
@@ -163,12 +120,20 @@ function loadCart() {
     sum += itemTotal;
 
     $container.append(`
-      <div class="card mb-2">
-        <div class="card-body">
-          <h5>${item.name}</h5>
-          <p class="mb-1 text-muted">${item.desc || ""}</p>
-          <p>單價 NT$${item.price} x ${item.qty} = NT$${itemTotal}</p>
-          <button class="btn btn-sm btn-danger remove-item" data-index="${index}">移除</button>
+      <div class="card mb-2 shadow-sm">
+        <div class="card-body d-flex justify-content-between align-items-center p-2">
+          <div>
+            <h6 class="card-title mb-1">${item.name}</h6>
+            <p class="mb-0">單價 NT$${item.price} × ${item.qty} = 
+              <strong>NT$${itemTotal}</strong>
+            </p>
+          </div>
+          <div class="btn-group btn-group-sm" role="group">
+            <button class="btn btn-outline-secondary decrease-qty" data-index="${index}">-</button>
+            <span class="px-2 align-self-center">${item.qty}</span>
+            <button class="btn btn-outline-secondary increase-qty" data-index="${index}">+</button>
+            <button class="btn btn-outline-danger remove-item" data-index="${index}">移除</button>
+          </div>
         </div>
       </div>
     `);
@@ -176,6 +141,29 @@ function loadCart() {
 
   $total.text(sum);
 
+  // 綁定 - 按鈕
+  $(".decrease-qty").on("click", function () {
+    const index = $(this).data("index");
+    if (cart[index].qty > 1) {
+      cart[index].qty--;
+    } else {
+      cart.splice(index, 1);
+    }
+    localStorage.setItem("cart", JSON.stringify(cart));
+    loadCart();
+    updateCartCount();
+  });
+
+  // 綁定 + 按鈕
+  $(".increase-qty").on("click", function () {
+    const index = $(this).data("index");
+    cart[index].qty++;
+    localStorage.setItem("cart", JSON.stringify(cart));
+    loadCart();
+    updateCartCount();
+  });
+
+  // 綁定移除
   $(".remove-item").on("click", function () {
     const index = $(this).data("index");
     cart.splice(index, 1);
@@ -184,3 +172,19 @@ function loadCart() {
     updateCartCount();
   });
 }
+
+// =============================
+// 跳到購物車頁
+// =============================
+function goToCart() {
+  window.location.href = "checkout.html";
+}
+
+// =============================
+// 頁面載入時初始化
+// =============================
+$(function () {
+
+  updateCartCount();
+  loadCart();
+});

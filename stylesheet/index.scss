@@ -1,11 +1,17 @@
-body, h1, h2, h3, p, span, div {
-  font-family: 'Noto Serif TC', serif !important;
+body,
+h1,
+h2,
+h3,
+p,
+span,
+div {
+  font-family: "Noto Serif TC", serif !important;
 }
 
-
+/* ===== Banner ===== */
 .banner {
-  background: url('../pic/banner-com.png') center center / cover no-repeat;
-  height: 500px; 
+  background: url("../pic/banner-com.png") center center / cover no-repeat;
+  height: 500px;
   position: relative;
   color: white;
   padding: 20px;
@@ -18,14 +24,14 @@ body, h1, h2, h3, p, span, div {
   left: 60px;
   padding: 20px 30px;
   border-radius: 12px;
-  text-align: left; /* 靠左對齊 */
-  max-width: 300px; /* 或根據需要限制寬度 */
+  text-align: left;
+  max-width: 300px;
 }
 
 .banner h1 {
   font-size: 2rem;
   margin-bottom: 10px;
-  white-space: nowrap; /* 強制不換行 */
+  white-space: nowrap;
 }
 
 .banner p {
@@ -48,15 +54,16 @@ body, h1, h2, h3, p, span, div {
   background-color: #e60000;
 }
 
+/* ===== Angled Logo ===== */
 .angled-logo {
   position: absolute;
-  top: 15;
+  top: 15px;
   right: 0;
-  padding: 6px 20px 6px 40px; 
+  padding: 6px 20px 6px 40px;
   background: rgba(255, 255, 255, 0.5);
-  color: #1d1d1d; 
+  color: #1d1d1d;
   font-weight: bold;
-  font-size: 16px; 
+  font-size: 16px;
   z-index: 10;
   display: flex;
   align-items: center;
@@ -64,24 +71,25 @@ body, h1, h2, h3, p, span, div {
 }
 
 .angled-logo img {
-  width: 70px;  
-  height: 70px;  
-  margin-right: 10px; 
+  width: 70px;
+  height: 70px;
+  margin-right: 10px;
 }
 
 .angled-logo span {
   line-height: 1.4;
-  font-size: 16px; 
+  font-size: 16px;
 }
 
+/* ===== Product Card ===== */
 .card {
   min-height: 100%;
 }
+
 .variant-btn {
   font-size: 0.9rem;
   white-space: nowrap;
 }
-
 
 .product-img {
   width: 100%;
@@ -89,38 +97,42 @@ body, h1, h2, h3, p, span, div {
   object-fit: contain;
 }
 
+/* ===== Footer ===== */
 .footer-top {
-background-color: #1d2d44;
-padding: 1rem 0;
-color: #ffffff;
+  background-color: #1d2d44;
+  padding: 1rem 0;
+  color: #ffffff;
 }
 
 .footer-bottom {
-background-color: #0d1321; 
-color: #ffffff;
-font-size: 0.9rem;
-text-align: center;
-padding: 1rem 0;
+  background-color: #0d1321;
+  color: #ffffff;
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 1rem 0;
 }
 
 .footer-logo img {
-max-width: 150px;
+  max-width: 150px;
 }
+
 .footer-contact i {
   color: #ffffff;
   font-size: 1.2rem;
 }
+
 .footer-contact p {
   margin-bottom: 0.5rem;
 }
 
+/* ===== Image Text ===== */
 .image-text-wrapper {
   display: inline-block;
   font-size: 200px;
   font-weight: 700;
   font-family: "Sigmar One", sans-serif !important;
   background-image: url("../pic/sbackground.jpg");
-  background-size: cover; 
+  background-size: cover;
   background-position: center;
   color: transparent;
   -webkit-background-clip: text;
@@ -128,6 +140,7 @@ max-width: 150px;
   text-align: center;
   line-height: 1;
 }
+
 .image-text {
   background: none;
   -webkit-background-clip: inherit;
@@ -135,9 +148,9 @@ max-width: 150px;
   color: inherit;
 }
 
-
+/* ===== Coffee Section ===== */
 .coffee-section {
-  background-image: url('../pic/backgroud.svg'); 
+  background-image: url("../pic/backgroud.svg");
   background-repeat: repeat;
   background-size: cover;
   background-position: center;
@@ -153,47 +166,51 @@ max-width: 150px;
 .coffee-section .content {
   z-index: 2;
   position: relative;
-  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.9); /* 加強白字可讀性 */
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.9);
 }
 
+/* ===== Dark Blue Section ===== */
 .darkblue {
   position: relative;
-  background-image: url('../pic/backgroud2.svg'); /* 確認路徑拼字正確 */
+  background-image: url("../pic/nature.jpg");
   background-repeat: repeat;
   background-size: auto;
   background-position: center;
   overflow: hidden;
 }
 
+/* 如果要 overlay 再打開
 .darkblue .overlaytop {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(240, 235, 216, 0.8);
   z-index: 1;
 }
+*/
 
 .darkblue .content-wrapper {
   position: relative;
-  z-index: 2; /* 內容浮在遮罩上 */
+  z-index: 2;
 }
+
 .main-title {
-  color: #2F3A50;
+  color: #2f3a50;
   font-weight: 600;
 }
 
 .sub-title {
-  color: #705D42;
+  color: #705d42;
   font-weight: 400;
 }
 
-
+/* ===== Global ===== */
 body {
-  background-color: #111; /* 與原圖一致深背景 */
+  background-color: #111;
 }
 
+/* ===== Responsive ===== */
 @media (max-width: 576px) {
   .banner {
     background: url("../pic/banner-mobile.png") no-repeat center center !important;
@@ -234,7 +251,7 @@ body {
   }
 
   .angled-logo {
-    top: 10px; 
+    top: 10px;
     padding: 6px 12px 6px 24px;
     font-size: 14px;
   }
@@ -250,6 +267,7 @@ body {
     line-height: 1.3;
   }
 }
+
 @media (min-width: 577px) and (max-width: 992px) {
   .banner {
     background: url("../pic/banner-ipad.png") no-repeat center center !important;
@@ -301,34 +319,39 @@ body {
   }
 }
 
-
-
+/* ===== Typewriter Effect ===== */
 .typewriter-text {
-    font-family: 'Noto Serif TC', serif;
-    font-weight: bold;
-    font-size: 2rem;
-    white-space: nowrap;
-    border-right: 2px solid #000;
-    width: 0;
-    animation: typing 2.5s steps(20, end) forwards, blink 0.7s step-end infinite;
-  }
-  @keyframes typing {
-    from { width: 0; }
-    to { width: 100%; }
-  }
-  @keyframes blink {
-    50% { border-color: transparent; }
-  }
+  font-family: "Noto Serif TC", serif;
+  font-weight: bold;
+  font-size: 2rem;
+  white-space: nowrap;
+  border-right: 2px solid #000;
+  width: 0;
+  animation: typing 2.5s steps(20, end) forwards, blink 0.7s step-end infinite;
+}
 
-  .product-thumbnail:hover {
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
+/* ===== Hover / Click Effects ===== */
+.product-thumbnail:hover {
   transform: scale(1.1);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+
 button:active {
   transform: scale(0.97);
   transition: transform 0.1s ease;
 }
+
+/* ===== Floating Cart ===== */
 .floating-cart {
   position: fixed;
   bottom: 20px;
@@ -357,4 +380,61 @@ button:active {
   font-weight: bold;
   border-radius: 999px;
   padding: 2px 6px;
+}
+
+/* ===== Toast ===== */
+#cartToast {
+  max-width: 80%;
+  word-break: break-all;
+  white-space: normal;
+  line-height: 1.5;
+}
+
+#cartToast .toast-body {
+  white-space: normal !important;
+  word-break: break-word;
+  line-height: 1.5;
+}
+
+@media (max-width: 576px) {
+  #cartToast {
+    max-width: 90%;
+    font-size: 14px;
+  }
+}
+
+#cart-toast-msg {
+  white-space: normal;
+  word-break: break-word;
+}
+
+/* ===== Cart Items ===== */
+#cart-items {
+  max-width: 800px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.cart-item {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
+  background: #fff;
+  font-size: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.cart-item .price {
+  color: #666;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.cart-item button {
+  font-size: 14px;
+  padding: 4px 10px;
 }
