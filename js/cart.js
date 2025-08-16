@@ -185,6 +185,7 @@ function goToCart() {
 // =============================
 $(function () {
 
+
   updateCartCount();
   loadCart();
 });

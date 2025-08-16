@@ -54,6 +54,7 @@
       href="https://fonts.googleapis.com/css2?family=Sigmar+One&display=swap"
       rel="stylesheet"
     />
+
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -166,6 +167,7 @@
         </div>
       </div>
     </section>
+
     <div class="container py-4">
       <div class="row">
         <!-- 卡片 1 -->
@@ -175,6 +177,9 @@
               src="pic/product1.png"
               class="card-img-top"
               alt="研磨壓萃咖啡組"
+              data-bs-toggle="modal"
+              data-bs-target="#imageModal"
+              onclick="showImage(this)"
             />
             <div class="card-body text-center d-flex flex-column">
               <h6 class="card-title">研磨壓萃咖啡組</h6>
@@ -211,6 +216,9 @@
               src="pic/product3.png"
               class="card-img-top"
               alt="磨豆機G-works"
+              data-bs-toggle="modal"
+              data-bs-target="#imageModal"
+              onclick="showImage(this)"
             />
             <div class="card-body text-center d-flex flex-column">
               <h6 class="card-title">磨豆機G-works</h6>
@@ -247,6 +255,9 @@
               src="pic/product2.png"
               class="card-img-top"
               alt="壓萃機E-works"
+              data-bs-toggle="modal"
+              data-bs-target="#imageModal"
+              onclick="showImage(this)"
             />
             <div class="card-body text-center d-flex flex-column">
               <h6 class="card-title">壓萃機E-works</h6>
@@ -281,6 +292,9 @@
               src="pic/product4.png"
               class="card-img-top"
               alt="PVD鍍膜粉杯"
+              data-bs-toggle="modal"
+              data-bs-target="#imageModal"
+              onclick="showImage(this)"
             />
             <div class="card-body text-center d-flex flex-column">
               <h6 class="card-title">PVD鍍膜粉杯</h6>
@@ -315,6 +329,9 @@
               src="pic/product5.png"
               class="card-img-top"
               alt="多功能清潔刷"
+              data-bs-toggle="modal"
+              data-bs-target="#imageModal"
+              onclick="showImage(this)"
             />
             <div class="card-body text-center d-flex flex-column">
               <h6 class="card-title">多功能清潔刷</h6>
@@ -345,7 +362,10 @@
         <!-- 卡片 6 -->
         <div class="col-6 col-md-3 mb-4">
           <div class="card h-100 d-flex flex-column">
-            <img src="pic/product6.png" class="card-img-top" alt="收納箱" />
+            <img src="pic/product6.png" class="card-img-top" alt="收納箱"
+            data-bs-toggle="modal"
+              data-bs-target="#imageModal"
+              onclick="showImage(this)" />
             <div class="card-body text-center d-flex flex-column">
               <h6 class="card-title">收納箱</h6>
               <p class="text-muted small flex-grow-1">高質感收納箱</p>
@@ -379,6 +399,9 @@
               src="pic/product6.png"
               class="card-img-top"
               alt="鈦合金可調式把手"
+              data-bs-toggle="modal"
+              data-bs-target="#imageModal"
+              onclick="showImage(this)"
             />
             <div class="card-body text-center d-flex flex-column">
               <h6 class="card-title">鈦合金可調式把手</h6>
@@ -409,7 +432,6 @@
     </div>
 
     <section class="darkblue pb-3">
-
       <!-- 所有內容包一層 -->
       <div class="content-wrapper text-center mb-4 mx-3">
         <h1
@@ -682,41 +704,21 @@
     </footer>
 
 
-    <!-- Modal 燈箱輪播 -->
-    <div
-      class="modal fade"
-      id="imageModal"
-      tabindex="-1"
-      aria-labelledby="imageModalLabel"
-      aria-hidden="true"
-    >
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content bg-dark">
-          <div class="modal-body p-0">
-            <div
-              id="carouselIndicators"
-              class="carousel slide"
-              data-bs-ride="carousel"
-            >
-              <div class="carousel-inner" id="carousel-images"></div>
-              <button
-                class="carousel-control-prev"
-                type="button"
-                data-bs-target="#carouselIndicators"
-                data-bs-slide="prev"
-              >
-                <span class="carousel-control-prev-icon"></span>
-              </button>
-              <button
-                class="carousel-control-next"
-                type="button"
-                data-bs-target="#carouselIndicators"
-                data-bs-slide="next"
-              >
-                <span class="carousel-control-next-icon"></span>
-              </button>
-            </div>
-          </div>
+        
+        <div class="modal-content bg-transparent border-0 shadow-none">
+          <button
+            type="button"
+            class="btn-close btn-close-white ms-auto me-2 mt-2"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+          <img
+            id="modalImage"
+            src=""
+            class="img-fluid rounded mx-auto d-block"
+          />
         </div>
       </div>
     </div>
@@ -777,6 +779,11 @@
       $(function () {
         updateCartCount(); // 頁面一進來就更新數字
       });
+    </script>
+    <script>
+      function showImage(img) {
+        document.getElementById("modalImage").src = img.src;
+      }
     </script>
   </body>
 </html>
