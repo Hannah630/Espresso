@@ -59,7 +59,7 @@ $("#checkout-form").on("submit", function (e) {
   const phone = $("#phone").val();
   const email = $("#email").val();
   const address = $("#address").val();
-  const total = $("#cart-total").text();
+  const total = parseInt($("#cart-total").text(), 10);
 
   const items = cart.map((item) => `${item.name} x${item.qty}`).join("\n");
 
@@ -69,18 +69,26 @@ $("#checkout-form").on("submit", function (e) {
       name, phone, email, address, total, items,
     })
     .then(() => {
-      console.log("📧 Email 寄出成功");
+      console.log("Email 寄出成功");
 
-      // step 2：向後端建立藍新金流訂單
+      // step 2：建立藍新金流訂單（注意這裡的 body 已修正）
       return fetch("https://espresso-backend.onrender.com/api/newebpay/createOrder", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone, email, address, total, items }),
+        body: JSON.stringify({
+          amount: total,
+          description: "咖啡訂單",
+          name,
+          phone,
+          email
+        }),
       });
     })
     .then(res => res.json())
     .then(pay => {
-      // step 3：自動建立表單並跳轉藍新
+      console.log("⚡ NewebPay 回傳：", pay);
+
+      // step 3：動態送出藍新付款表單
       const form = $('<form>', {
         method: "POST",
         action: pay.PayGateWay
@@ -94,7 +102,7 @@ $("#checkout-form").on("submit", function (e) {
       $("body").append(form);
       form.submit();
     })
-    .catch(err => alert("❌ 結帳失敗：" + err.message));
+    .catch(err => alert("結帳失敗：" + err.message));
 });
 
 // =============================
