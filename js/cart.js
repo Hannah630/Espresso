@@ -3,7 +3,9 @@ console.log("✅ cart.js 已載入");
 // EmailJS 初始化 (有用到才留)
 // =============================
 try {
-  emailjs.init(EMAILJS_PUBLIC_KEY); // 來自 email-config.js
+  emailjs.init({
+    publicKey: EMAILJS_PUBLIC_KEY
+  });
 } catch (e) {
   console.error("EmailJS 初始化失敗", e);
 }
@@ -28,7 +30,7 @@ $(document).on("click", ".add-to-cart", function () {
 
   localStorage.setItem("cart", JSON.stringify(cart));
   updateCartCount();
-  loadCart(); // ✅ 立刻刷新 checkout 畫面
+  loadCart(); //
 
   // Toast 提示
   showCartToast(`${name} 已加入購物車`);
@@ -184,8 +186,6 @@ function goToCart() {
 // 頁面載入時初始化
 // =============================
 $(function () {
-
-
   updateCartCount();
   loadCart();
 });

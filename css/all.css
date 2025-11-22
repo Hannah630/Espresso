@@ -1,8 +1,15 @@
 @charset "UTF-8";
-body, h1, h2, h3, p, span, div {
+body,
+h1,
+h2,
+h3,
+p,
+span,
+div {
   font-family: "Noto Serif TC", serif !important;
 }
 
+/* ===== Banner ===== */
 .banner {
   background: url("../pic/banner-com.png") center center/cover no-repeat;
   height: 500px;
@@ -18,14 +25,14 @@ body, h1, h2, h3, p, span, div {
   left: 60px;
   padding: 20px 30px;
   border-radius: 12px;
-  text-align: left; /* 靠左對齊 */
-  max-width: 300px; /* 或根據需要限制寬度 */
+  text-align: left;
+  max-width: 300px;
 }
 
 .banner h1 {
   font-size: 2rem;
   margin-bottom: 10px;
-  white-space: nowrap; /* 強制不換行 */
+  white-space: nowrap;
 }
 
 .banner p {
@@ -48,9 +55,10 @@ body, h1, h2, h3, p, span, div {
   background-color: #e60000;
 }
 
+/* ===== Angled Logo ===== */
 .angled-logo {
   position: absolute;
-  top: 15;
+  top: 15px;
   right: 0;
   padding: 6px 20px 6px 40px;
   background: rgba(255, 255, 255, 0.5);
@@ -74,6 +82,7 @@ body, h1, h2, h3, p, span, div {
   font-size: 16px;
 }
 
+/* ===== Product Card ===== */
 .card {
   min-height: 100%;
 }
@@ -90,6 +99,7 @@ body, h1, h2, h3, p, span, div {
      object-fit: contain;
 }
 
+/* ===== Footer ===== */
 .footer-top {
   background-color: #1d2d44;
   padding: 1rem 0;
@@ -117,6 +127,7 @@ body, h1, h2, h3, p, span, div {
   margin-bottom: 0.5rem;
 }
 
+/* ===== Image Text ===== */
 .image-text-wrapper {
   display: inline-block;
   font-size: 200px;
@@ -139,12 +150,9 @@ body, h1, h2, h3, p, span, div {
   color: inherit;
 }
 
+/* ===== Coffee Section ===== */
 .coffee-section {
-   background-image: linear-gradient(
-      rgba(255, 255, 255, 0.25),
-      rgba(255, 255, 255, 0.25)
-    ),
-    url("../pic/nature.jpg");
+  background-image: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), url("../pic/nature.jpg");
   background-repeat: repeat;
   background-size: cover;
   background-position: center;
@@ -152,48 +160,58 @@ body, h1, h2, h3, p, span, div {
   overflow: hidden;
 }
 
-/* .coffee-section .overlay {
+.coffee-section .overlay {
   background-color: rgba(13, 19, 33, 0.9);
   z-index: 1;
-} */
+}
 
 .coffee-section .content {
   z-index: 2;
   position: relative;
-  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.9); /* 加強白字可讀性 */
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.9);
 }
 
+/* ===== Dark Blue Section ===== */
 .darkblue {
   position: relative;
-  background-image: linear-gradient(rgba(255,255,255,0.65), rgba(255,255,255,0.65)), 
-                    url("../pic/nature.jpg");
+  background-image: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), url("../pic/nature.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   overflow: hidden;
 }
 
-
-
+/* 如果要 overlay 再打開
+.darkblue .overlaytop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+*/
 .darkblue .content-wrapper {
   position: relative;
-  z-index: 2; /* 內容浮在遮罩上 */
+  z-index: 2;
 }
 
 .main-title {
-  color: #2F3A50;
+  color: #2f3a50;
   font-weight: 600;
 }
 
 .sub-title {
-  color: #705D42;
+  color: #705d42;
   font-weight: 400;
 }
 
+/* ===== Global ===== */
 body {
-  background-color: #111; /* 與原圖一致深背景 */
+  background-color: #111;
 }
 
+/* ===== Responsive ===== */
 @media (max-width: 576px) {
   .banner {
     background: url("../pic/banner-mobile.png") no-repeat center center !important;
@@ -285,6 +303,7 @@ body {
     line-height: 1.4;
   }
 }
+/* ===== Typewriter Effect ===== */
 .typewriter-text {
   font-family: "Noto Serif TC", serif;
   font-weight: bold;
@@ -308,6 +327,7 @@ body {
     border-color: transparent;
   }
 }
+/* ===== Hover / Click Effects ===== */
 .product-thumbnail:hover {
   transform: scale(1.1);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -319,6 +339,7 @@ button:active {
   transition: transform 0.1s ease;
 }
 
+/* ===== Floating Cart ===== */
 .floating-cart {
   position: fixed;
   bottom: 20px;
@@ -347,4 +368,60 @@ button:active {
   font-weight: bold;
   border-radius: 999px;
   padding: 2px 6px;
+}
+
+/* ===== Toast ===== */
+#cartToast {
+  max-width: 80%;
+  word-break: break-all;
+  white-space: normal;
+  line-height: 1.5;
+}
+
+#cartToast .toast-body {
+  white-space: normal !important;
+  word-break: break-word;
+  line-height: 1.5;
+}
+
+@media (max-width: 576px) {
+  #cartToast {
+    max-width: 90%;
+    font-size: 14px;
+  }
+}
+#cart-toast-msg {
+  white-space: normal;
+  word-break: break-word;
+}
+
+/* ===== Cart Items ===== */
+#cart-items {
+  max-width: 800px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.cart-item {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
+  background: #fff;
+  font-size: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.cart-item .price {
+  color: #666;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.cart-item button {
+  font-size: 14px;
+  padding: 4px 10px;
 }
