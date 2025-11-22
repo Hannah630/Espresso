@@ -6,13 +6,13 @@ console.log("cart.js 已載入");
 let emailjsConfig = null;
 
 fetch("https://espresso-backend.onrender.com/api/emailjs-config")
-  .then(res => res.json())
-  .then(cfg => {
+  .then((res) => res.json())
+  .then((cfg) => {
     emailjsConfig = cfg;
     console.log("EmailJS 設定已載入", cfg);
     emailjs.init(cfg.publicKey);
   })
-  .catch(err => console.error("EmailJS 設定抓取失敗：", err));
+  .catch((err) => console.error("EmailJS 設定抓取失敗：", err));
 
 // =============================
 // 加入購物車邏輯
@@ -66,43 +66,51 @@ $("#checkout-form").on("submit", function (e) {
   // step 1：寄 Email
   emailjs
     .send(emailjsConfig.serviceId, emailjsConfig.templateId, {
-      name, phone, email, address, total, items,
+      name,
+      phone,
+      email,
+      address,
+      total,
+      items,
     })
     .then(() => {
       console.log("Email 寄出成功");
 
-      // step 2：建立藍新金流訂單（注意這裡的 body 已修正）
-      return fetch("https://espresso-backend.onrender.com/api/newebpay/createOrder", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          amount: total,
-          description: "咖啡訂單",
-          name,
-          phone,
-          email
-        }),
-      });
+      return fetch(
+        "https://espresso-backend.onrender.com/api/newebpay/createOrder",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name,
+            phone,
+            email,
+            address,
+            total,
+            items,
+          }),
+        }
+      );
     })
-    .then(res => res.json())
-    .then(pay => {
+    .then((res) => res.json())
+    .then((pay) => {
       console.log("⚡ NewebPay 回傳：", pay);
 
       // step 3：動態送出藍新付款表單
-      const form = $('<form>', {
+      const form = $("<form>", {
         method: "POST",
-        action: pay.PayGateWay
+        action: pay.PayGateWay,
       });
 
-      form.append($('<input>', { name: "MerchantID", value: pay.MerchantID }));
-      form.append($('<input>', { name: "TradeInfo", value: pay.TradeInfo }));
-      form.append($('<input>', { name: "TradeSha", value: pay.TradeSha }));
-      form.append($('<input>', { name: "Version", value: pay.Version }));
+      form.append($("<input>", { name: "MerchantID", value: pay.MerchantID }));
+      form.append($("<input>", { name: "TradeInfo", value: pay.TradeInfo }));
+      form.append($("<input>", { name: "TradeSha", value: pay.TradeSha }));
+      form.append($("<input>", { name: "Version", value: pay.Version }));
 
       $("body").append(form);
       form.submit();
     })
-    .catch(err => alert("結帳失敗：" + err.message));
+    .catch((err) => alert("結帳失敗：" + err.message));
 });
 
 // =============================
