@@ -425,3 +425,33 @@ button:active {
   font-size: 14px;
   padding: 4px 10px;
 }
+
+.policy-card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.06);
+  max-width: 720px; /* 👈 跟訂單資訊寬度對齊 */
+  margin: 0 auto;
+}
+
+.policy-card h4 {
+  border-left: 4px solid #003366;
+  padding-left: 10px;
+  color: #003366;
+}
+
+.accordion-button {
+  font-weight: 600;
+  background: #f8f9fa;
+}
+
+.accordion-button:not(.collapsed) {
+  background: #e8eef7;
+  color: #003366;
+}
+
+.accordion-body {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #444;
+}
