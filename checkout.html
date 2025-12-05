@@ -1,281 +1,222 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>購物車結帳</title>
-    <link rel="stylesheet" href="css/all.css" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Anton&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"
-      rel="stylesheet"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Sigmar+One&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <nav
-      class="navbar navbar-expand-lg navbar-dark px-3"
-      style="background-color: #0d1321"
-    >
-      <a
-        class="navbar-brand position-relative"
-        href="index.html"
-        style="overflow: visible"
-      >
-        <img
-          src="pic/logo.svg"
-          alt="logo"
-          style="
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>購物車結帳</title>
+  <link rel="stylesheet" href="css/all.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Sigmar+One&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark px-3" style="background-color: #0d1321">
+    <a class="navbar-brand position-relative" href="index.html" style="overflow: visible">
+      <img src="pic/logo.svg" alt="logo" style="
             height: 60px;
             margin-right: 10px;
             transform: scale(1.2);
             transform-origin: left center;
-          "
-        />
-        佑奕設計
-      </a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarNav"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
+          " />
+      佑奕設計
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" href="index.html">首頁</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" href="index.html">產品說明</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" href="index.html">聯絡我們</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" href="checkout.html">購物車</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-
-    <!-- 訂單列表區 -->
-    <div id="cart-items" class="my-3 mx-5"></div>
-
-    <form id="checkout-form" class="container my-5">
-      <h3 class="mb-4">訂單資訊</h3>
-
-      <div class="mb-3">
-        <label for="name" class="form-label">姓名</label>
-        <input
-          type="text"
-          id="name"
-          class="form-control"
-          placeholder="請輸入您的姓名"
-          required
-        />
-      </div>
-
-      <div class="mb-3">
-        <label for="phone" class="form-label">電話</label>
-        <input
-          type="tel"
-          id="phone"
-          class="form-control"
-          placeholder="0912-345-678"
-          required
-        />
-      </div>
-
-      <div class="mb-3">
-        <label for="email" class="form-label">電子信箱</label>
-        <input
-          type="email"
-          id="email"
-          class="form-control"
-          placeholder="example@email.com"
-          required
-        />
-      </div>
-
-      <div class="mb-3">
-        <label for="address" class="form-label">地址</label>
-        <input
-          type="text"
-          id="address"
-          class="form-control"
-          placeholder="台南市東區..."
-          required
-        />
-      </div>
-
-      <!-- 顯示購物車總金額 -->
-      <div class="mb-3">
-        <label class="form-label">總金額</label>
-        <p>NT$ <span id="cart-total">0</span></p>
-      </div>
-      <button
-        type="button"
-        class="btn btn-secondary me-2"
-        onclick="window.location.href='index.html'"
-      >
-        返回商品列表
-      </button>
-      <button type="submit" class="btn btn-primary">送出訂單</button>
-    </form>
-
-    <!-- 懸浮購物車圖示 -->
-    <div class="floating-cart" onclick="goToCart()">
-      <i class="bi bi-cart-fill"></i>
-      <span class="cart-count" id="cart-count">0</span>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" href="index.html">首頁</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="index.html">產品說明</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="index.html">聯絡我們</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="checkout.html">購物車</a>
+        </li>
+      </ul>
     </div>
-<!-- 購物須知（卡片樣式） -->
-<div class="container my-5">
-  <div class="policy-card p-4 mx-auto">
+  </nav>
 
-    <h4 class="mb-3 fw-bold">購物須知</h4>
+  <div class="container my-4">
+    <div id="cart-items"></div>
+  </div>
 
-    <div class="accordion" id="policyAccordion">
+  <!-- 訂單資訊卡片 -->
+  <div class="container my-5 d-flex justify-content-center">
+    <div class="order-card p-4 w-100">
 
-      <!-- 隱私權政策 -->
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="privacyHeading">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse"
-            data-bs-target="#privacyCollapse">
-            隱私權政策
-          </button>
-        </h2>
-        <div id="privacyCollapse" class="accordion-collapse collapse show"
-          data-bs-parent="#policyAccordion">
-          <div class="accordion-body">
-            <p>本網站依據《個人資料保護法》保護您的個人資料，僅於訂單處理、出貨、付款驗證與客服目的使用。</p>
-            <p>我們不會出售或提供您的資料給無關第三方。所有金流交易皆由藍新金流（NewebPay）安全處理。</p>
-          </div>
+      <!-- 只有這裡才是 form！ -->
+      <form id="checkout-form">
+
+        <h3 class="mb-4">訂單資訊</h3>
+
+        <div class="mb-3">
+          <label for="name" class="form-label">姓名</label>
+          <input type="text" id="name" class="form-control" placeholder="請輸入您的姓名" required />
         </div>
-      </div>
 
-      <!-- 會員服務條款 -->
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="termsHeading">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-            data-bs-target="#termsCollapse">
-            會員服務條款
-          </button>
-        </h2>
-        <div id="termsCollapse" class="accordion-collapse collapse"
-          data-bs-parent="#policyAccordion">
-          <div class="accordion-body">
-            <p>下單時請提供正確且完整的資料；如因資料不實導致配送問題，本網站不負相關責任。</p>
-            <p>訂單於付款完成後成立，如遇系統錯誤或庫存不足，本網站保有取消訂單之權利並協助退款。</p>
-            <p>本站所有圖片、文字、設計等內容皆受著作權保護，未經授權不得使用。</p>
-          </div>
+        <div class="mb-3">
+          <label for="phone" class="form-label">電話</label>
+          <input type="tel" id="phone" class="form-control" placeholder="0912-345-678" required />
         </div>
-      </div>
 
-      <!-- 消費者權益 -->
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="consumerHeading">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-            data-bs-target="#consumerCollapse">
-            消費者權益
-          </button>
-        </h2>
-        <div id="consumerCollapse" class="accordion-collapse collapse"
-          data-bs-parent="#policyAccordion">
-          <div class="accordion-body">
-            <p>依《消費者保護法》，台灣消費者享有七天鑑賞期（非試用期）。</p>
-            <p>商品須保持全新未使用、包裝完整。部分商品（如個人衛生商品、客製化商品）不適用鑑賞期。</p>
-          </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">電子信箱</label>
+          <input type="email" id="email" class="form-control" placeholder="example@email.com" required />
         </div>
-      </div>
 
-      <!-- 退換貨政策 -->
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="refundHeading">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-            data-bs-target="#refundCollapse">
-            退換貨政策
-          </button>
-        </h2>
-        <div id="refundCollapse" class="accordion-collapse collapse"
-          data-bs-parent="#policyAccordion">
-          <div class="accordion-body">
-            <p>您可在收到商品七天內提出退貨申請，商品須保持完整未損壞。</p>
-            <p>如為瑕疵或寄錯商品，我們將負擔運費並協助換貨或退款。</p>
-            <p>退款將依付款方式於 3–7 個工作天內進行處理。</p>
-          </div>
+        <div class="mb-3">
+          <label for="address" class="form-label">地址</label>
+          <input type="text" id="address" class="form-control" placeholder="台南市東區..." required />
         </div>
-      </div>
 
+        <div class="d-flex justify-content-end align-items-center mt-4">
+          <span class="total-label me-2">總金額</span>
+          <span class="total-price">NT$ <span id="cart-total">0</span></span>
+        </div>
+
+        <!-- 按鈕放下一行 -->
+        <div class="d-flex justify-content-end mt-3">
+          <button type="button" class="btn btn-outline-dark-custom me-2" onclick="window.location.href='index.html'">
+            返回商品列表
+          </button>
+          <button type="submit" class="btn btn-primary">送出訂單</button>
+        </div>
+
+      </form>
     </div>
   </div>
-</div>
 
-    <footer>
-      <!-- 上方白底 Footer -->
-      <div class="footer-top" id="contact">
-        <div class="container">
-          <div class="row flex-column align-items-center text-center">
-            <!-- Logo 區 -->
-            <div class="footer-logo mb-3">
-              <img src="pic/logo.png" alt="佑奕設計 Logo" />
-            </div>
-            <!-- 聯絡資訊 -->
-            <div class="footer-contact text-light">
-              <p><i class="bi bi-person-fill me-2"></i>姓名：林奕全</p>
-              <p>
-                <i class="bi bi-telephone-fill me-2"></i>電話：<span
-                  style="font-weight: 500"
-                  >0968-365-510</span
-                >
-              </p>
-              <p>
-                <i class="bi bi-chat-dots-fill me-2"></i>LINE ID：<span
-                  style="font-weight: 500"
-                  >@899lielt</span
-                >
-              </p>
-              <p><i class="bi bi-geo-alt-fill me-2"></i>地址：彰化縣埔心鄉</p>
+  <!-- 懸浮購物車圖示 -->
+  <div class="floating-cart" onclick="goToCart()">
+    <i class="bi bi-cart-fill"></i>
+    <span class="cart-count" id="cart-count">0</span>
+  </div>
+  <!-- 購物須知（卡片樣式） -->
+  <div class="container my-5">
+    <div class="policy-card p-4 mx-auto">
+
+      <h4 class="mb-3 fw-bold">購物須知</h4>
+
+      <div class="accordion" id="policyAccordion">
+
+        <!-- 隱私權政策 -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="privacyHeading">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#privacyCollapse">
+              隱私權政策
+            </button>
+          </h2>
+          <div id="privacyCollapse" class="accordion-collapse collapse show" data-bs-parent="#policyAccordion">
+            <div class="accordion-body">
+              <p>本網站依據《個人資料保護法》保護您的個人資料，僅於訂單處理、出貨、付款驗證與客服目的使用。</p>
+              <p>我們不會出售或提供您的資料給無關第三方。所有金流交易皆由藍新金流（NewebPay）安全處理。</p>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- 底部版權 -->
-      <div class="footer-bottom text-center">
-        ©Copyright 2025 by 佑奕設計 All Rights Reserved.｜Design by 佑奕設計
-      </div>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <!-- 會員服務條款 -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="termsHeading">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#termsCollapse">
+              會員服務條款
+            </button>
+          </h2>
+          <div id="termsCollapse" class="accordion-collapse collapse" data-bs-parent="#policyAccordion">
+            <div class="accordion-body">
+              <p>下單時請提供正確且完整的資料；如因資料不實導致配送問題，本網站不負相關責任。</p>
+              <p>訂單於付款完成後成立，如遇系統錯誤或庫存不足，本網站保有取消訂單之權利並協助退款。</p>
+              <p>本站所有圖片、文字、設計等內容皆受著作權保護，未經授權不得使用。</p>
+            </div>
+          </div>
+        </div>
 
-    <script src="js/email-config.js"></script>
-    <script src="js/cart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
-  </body>
+        <!-- 消費者權益 -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="consumerHeading">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#consumerCollapse">
+              消費者權益
+            </button>
+          </h2>
+          <div id="consumerCollapse" class="accordion-collapse collapse" data-bs-parent="#policyAccordion">
+            <div class="accordion-body">
+              <p>依《消費者保護法》，台灣消費者享有七天鑑賞期（非試用期）。</p>
+              <p>商品須保持全新未使用、包裝完整。部分商品（如個人衛生商品、客製化商品）不適用鑑賞期。</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 退換貨政策 -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="refundHeading">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#refundCollapse">
+              退換貨政策
+            </button>
+          </h2>
+          <div id="refundCollapse" class="accordion-collapse collapse" data-bs-parent="#policyAccordion">
+            <div class="accordion-body">
+              <p>您可在收到商品七天內提出退貨申請，商品須保持完整未損壞。</p>
+              <p>如為瑕疵或寄錯商品，我們將負擔運費並協助換貨或退款。</p>
+              <p>退款將依付款方式於 3–7 個工作天內進行處理。</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <!-- 上方白底 Footer -->
+    <div class="footer-top" id="contact">
+      <div class="container">
+        <div class="row flex-column align-items-center text-center">
+          <!-- Logo 區 -->
+          <div class="footer-logo mb-3">
+            <img src="pic/logo.png" alt="佑奕設計 Logo" />
+          </div>
+          <!-- 聯絡資訊 -->
+          <div class="footer-contact text-light">
+            <p><i class="bi bi-person-fill me-2"></i>姓名：林奕全</p>
+            <p>
+              <i class="bi bi-telephone-fill me-2"></i>電話：<span style="font-weight: 500">0968-365-510</span>
+            </p>
+            <p>
+              <i class="bi bi-chat-dots-fill me-2"></i>LINE ID：<span style="font-weight: 500">@899lielt</span>
+            </p>
+            <p><i class="bi bi-geo-alt-fill me-2"></i>地址：彰化縣埔心鄉</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 底部版權 -->
+    <div class="footer-bottom text-center">
+      ©Copyright 2025 by 佑奕設計 All Rights Reserved.｜Design by 佑奕設計
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <script src="js/email-config.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+</body>
+
 </html>
