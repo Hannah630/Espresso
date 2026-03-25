@@ -1,4 +1,6 @@
-console.log("cart.js 已載入");
+const CART_JS_VERSION = "20260325-3";
+
+console.log("cart.js 已載入", { version: CART_JS_VERSION });
 
 const API_BASE_URL =
   !window.location.hostname ||
@@ -86,21 +88,49 @@ function sendOrderEmail(payload) {
   );
 }
 
+function createPaymentFields(pay) {
+  const fields = {
+    MerchantID: `${pay.MerchantID ?? ""}`.trim(),
+    TradeInfo: `${pay.TradeInfo ?? ""}`.trim(),
+    TradeSha: `${pay.TradeSha ?? ""}`.trim(),
+    Version: `${pay.Version ?? ""}`.trim(),
+  };
+
+  const encryptType = `${pay.EncryptType ?? ""}`.trim();
+
+  if (encryptType) {
+    fields.EncryptType = encryptType;
+  }
+
+  return fields;
+}
+
+function storePaymentDebugSnapshot(action, fields) {
+  window.__NEWEBPAY_LAST_SUBMISSION__ = {
+    version: CART_JS_VERSION,
+    action,
+    fields: { ...fields },
+    createdAt: new Date().toISOString(),
+  };
+
+  console.log("即將送出藍新表單", window.__NEWEBPAY_LAST_SUBMISSION__);
+}
+
 function createPaymentForm(pay) {
   if (!pay.PayGateWay) {
     throw new Error("藍新付款網址缺失");
   }
 
+  const fields = createPaymentFields(pay);
+
+  document
+    .querySelectorAll('form[data-newebpay-form="true"]')
+    .forEach((existingForm) => existingForm.remove());
+
   const form = document.createElement("form");
   form.method = "POST";
   form.action = pay.PayGateWay;
-
-  const fields = {
-    MerchantID: pay.MerchantID,
-    TradeInfo: pay.TradeInfo,
-    TradeSha: pay.TradeSha,
-    Version: pay.Version,
-  };
+  form.dataset.newebpayForm = "true";
 
   Object.entries(fields).forEach(([name, value]) => {
     if (!value) {
@@ -113,6 +143,8 @@ function createPaymentForm(pay) {
     input.value = value;
     form.appendChild(input);
   });
+
+  storePaymentDebugSnapshot(form.action, fields);
 
   return form;
 }
