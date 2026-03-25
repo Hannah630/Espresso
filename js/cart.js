@@ -1,13 +1,26 @@
 console.log("cart.js 已載入");
 
+const API_BASE_URL =
+  !window.location.hostname ||
+  window.location.hostname === "localhost" ||
+  window.location.hostname === "127.0.0.1"
+    ? "http://localhost:3000"
+    : "https://espresso-backend.onrender.com";
+
 // =============================
 // EmailJS：從後端抓金鑰並初始化
 // =============================
 let emailjsConfig = null;
 
-fetch("https://espresso-backend.onrender.com/api/emailjs-config")
+fetch(`${API_BASE_URL}/api/emailjs-config`)
   .then((res) => res.json())
   .then((cfg) => {
+    if (!cfg.publicKey || !cfg.serviceId || !cfg.templateId) {
+      emailjsConfig = null;
+      console.warn("EmailJS 設定不完整，將略過寄信流程", cfg);
+      return;
+    }
+
     emailjsConfig = cfg;
     console.log("EmailJS 設定已載入", cfg);
     emailjs.init(cfg.publicKey);
@@ -45,73 +58,158 @@ function showCartToast(message) {
   if (toastEl) new bootstrap.Toast(toastEl, { delay: 2000 }).show();
 }
 
+function collectCheckoutData() {
+  const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+
+  return {
+    cart,
+    payload: {
+      name: $("#name").val(),
+      phone: $("#phone").val(),
+      email: $("#email").val(),
+      address: $("#address").val(),
+      total: parseInt($("#cart-total").text(), 10),
+      items: cart.map((item) => `${item.name} x${item.qty}`).join("\n"),
+    },
+  };
+}
+
+function sendOrderEmail(payload) {
+  if (!emailjsConfig) {
+    return Promise.resolve();
+  }
+
+  return emailjs.send(
+    emailjsConfig.serviceId,
+    emailjsConfig.templateId,
+    payload,
+  );
+}
+
+function createPaymentForm(pay) {
+  if (!pay.PayGateWay) {
+    throw new Error("藍新付款網址缺失");
+  }
+
+  const form = document.createElement("form");
+  form.method = "POST";
+  form.action = pay.PayGateWay;
+
+  const fields = {
+    MerchantID: pay.MerchantID,
+    TradeInfo: pay.TradeInfo,
+    TradeSha: pay.TradeSha,
+    Version: pay.Version,
+  };
+
+  Object.entries(fields).forEach(([name, value]) => {
+    if (!value) {
+      throw new Error(`缺少付款欄位：${name}`);
+    }
+
+    const input = document.createElement("input");
+    input.type = "hidden";
+    input.name = name;
+    input.value = value;
+    form.appendChild(input);
+  });
+
+  return form;
+}
+
+function getErrorMessage(err) {
+  if (err instanceof Error && err.message) {
+    return err.message;
+  }
+
+  if (typeof err === "string" && err) {
+    return err;
+  }
+
+  if (err && typeof err === "object") {
+    if (err.message) {
+      return err.message;
+    }
+
+    try {
+      return JSON.stringify(err);
+    } catch {
+      return "未知錯誤";
+    }
+  }
+
+  return "未知錯誤";
+}
+
+async function requestNewebPayOrder(payload) {
+  const response = await fetch(`${API_BASE_URL}/api/newebpay/createOrder`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+
+  const rawText = await response.text();
+  let data;
+
+  try {
+    data = JSON.parse(rawText);
+  } catch {
+    throw new Error(`付款初始化回應不是 JSON：${rawText || "空回應"}`);
+  }
+
+  if (!response.ok) {
+    throw new Error(data.message || "付款初始化失敗");
+  }
+
+  if (
+    !data.MerchantID ||
+    !data.TradeInfo ||
+    !data.TradeSha ||
+    !data.PayGateWay
+  ) {
+    throw new Error("付款欄位不完整");
+  }
+
+  return data;
+}
+
 // =============================
 // Checkout：表單送出
 // =============================
-$("#checkout-form").on("submit", function (e) {
-  e.preventDefault();
+$(document)
+  .off("submit", "#checkout-form")
+  .on("submit", "#checkout-form", async function (e) {
+    e.preventDefault();
 
-  const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-  if (!emailjsConfig) return alert("Email 系統尚未初始化");
-  if (cart.length === 0) return alert("購物車是空的");
+    const { cart, payload } = collectCheckoutData();
+    const submitButton = $(this).find('button[type="submit"]');
+    const originalButtonText = submitButton.text();
 
-  const name = $("#name").val();
-  const phone = $("#phone").val();
-  const email = $("#email").val();
-  const address = $("#address").val();
-  const total = parseInt($("#cart-total").text(), 10);
+    if (cart.length === 0) {
+      alert("購物車是空的");
+      return;
+    }
 
-  const items = cart.map((item) => `${item.name} x${item.qty}`).join("\n");
+    submitButton.prop("disabled", true).text("處理中...");
 
-  // step 1：寄 Email
-  emailjs
-    .send(emailjsConfig.serviceId, emailjsConfig.templateId, {
-      name,
-      phone,
-      email,
-      address,
-      total,
-      items,
-    })
-    .then(() => {
-      console.log("Email 寄出成功");
+    try {
+      const pay = await requestNewebPayOrder(payload);
 
-      return fetch(
-        "https://espresso-backend.onrender.com/api/newebpay/createOrder",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name,
-            phone,
-            email,
-            address,
-            total,
-            items,
-          }),
-        }
-      );
-    })
-    .then((res) => res.json())
-    .then((pay) => {
-      console.log("⚡ NewebPay 回傳：", pay);
+      sendOrderEmail(payload)
+        .then(() => console.log("Email 寄出成功"))
+        .catch((err) => console.error("Email 寄送失敗：", err));
 
-      // step 3：動態送出藍新付款表單
-      const form = $("<form>", {
-        method: "POST",
-        action: pay.PayGateWay,
-      });
+      console.log("NewebPay 回傳：", pay);
 
-      form.append($("<input>", { name: "MerchantID", value: pay.MerchantID }));
-      form.append($("<input>", { name: "TradeInfo", value: pay.TradeInfo }));
-      form.append($("<input>", { name: "TradeSha", value: pay.TradeSha }));
-      form.append($("<input>", { name: "Version", value: pay.Version }));
-
-      $("body").append(form);
+      const form = createPaymentForm(pay);
+      document.body.appendChild(form);
       form.submit();
-    })
-    .catch((err) => alert("結帳失敗：" + err.message));
-});
+    } catch (err) {
+      console.error("Checkout failed:", err);
+      alert("結帳失敗：" + getErrorMessage(err));
+      submitButton.prop("disabled", false).text(originalButtonText);
+    }
+  });
 
 // =============================
 // 更新購物車數字
