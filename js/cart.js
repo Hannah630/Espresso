@@ -1,4 +1,4 @@
-const CART_JS_VERSION = "20260325-3";
+const CART_JS_VERSION = "20260325-4";
 
 console.log("cart.js 已載入", { version: CART_JS_VERSION });
 
@@ -8,26 +8,6 @@ const API_BASE_URL =
   window.location.hostname === "127.0.0.1"
     ? "http://localhost:3000"
     : "https://espresso-backend.onrender.com";
-
-// =============================
-// EmailJS：從後端抓金鑰並初始化
-// =============================
-let emailjsConfig = null;
-
-fetch(`${API_BASE_URL}/api/emailjs-config`)
-  .then((res) => res.json())
-  .then((cfg) => {
-    if (!cfg.publicKey || !cfg.serviceId || !cfg.templateId) {
-      emailjsConfig = null;
-      console.warn("EmailJS 設定不完整，將略過寄信流程", cfg);
-      return;
-    }
-
-    emailjsConfig = cfg;
-    console.log("EmailJS 設定已載入", cfg);
-    emailjs.init(cfg.publicKey);
-  })
-  .catch((err) => console.error("EmailJS 設定抓取失敗：", err));
 
 // =============================
 // 加入購物車邏輯
@@ -74,18 +54,6 @@ function collectCheckoutData() {
       items: cart.map((item) => `${item.name} x${item.qty}`).join("\n"),
     },
   };
-}
-
-function sendOrderEmail(payload) {
-  if (!emailjsConfig) {
-    return Promise.resolve();
-  }
-
-  return emailjs.send(
-    emailjsConfig.serviceId,
-    emailjsConfig.templateId,
-    payload,
-  );
 }
 
 function createPaymentFields(pay) {
@@ -226,10 +194,6 @@ $(document)
 
     try {
       const pay = await requestNewebPayOrder(payload);
-
-      sendOrderEmail(payload)
-        .then(() => console.log("Email 寄出成功"))
-        .catch((err) => console.error("Email 寄送失敗：", err));
 
       console.log("NewebPay 回傳：", pay);
 
