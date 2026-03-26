@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>付款成功</title>
+    <link rel="stylesheet" href="css/all.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="container d-flex align-items-center justify-content-center" style="height:80vh">
+        <div class="text-center">
+            <h2 class="mb-3">感謝您的訂購</h2>
+            <p class="text-muted mb-4">付款已完成，我們會盡快處理您的訂單。</p>
+            <a id="go-home" class="btn btn-primary" href="index.html">返回首頁</a>
+        </div>
+    </div>
+
+    <!-- Success Modal (also shown on load for emphasis) -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center py-4">
+                    <h4 class="mb-2">付款成功 🎉</h4>
+                    <p class="mb-3">感謝您的購買，頁面將自動回到首頁。</p>
+                    <button id="modal-home" class="btn btn-outline-primary">立即回首頁</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // 讀取 query string（部分金流會帶回參數）
+        function qs() {
+            const s = {};
+            const q = location.search.replace(/^\?/, '').split('&').filter(Boolean);
+            q.forEach(pair => {
+                const [k, v] = pair.split('=');
+                s[decodeURIComponent(k)] = decodeURIComponent((v || ''));
+            });
+            return s;
+        }
+
+        (function () {
+            const params = qs();
+
+            // 清空購物車（避免重複付款後仍保留舊資料）
+            try {
+                localStorage.removeItem('cart');
+                // 更新 navbar cart count if page loaded inside SPA frame
+                if (window.updateCartCount) updateCartCount();
+            } catch (e) {
+                console.warn('清空購物車失敗', e);
+            }
+
+            const modalEl = new bootstrap.Modal(document.getElementById('successModal'));
+            modalEl.show();
+
+            document.getElementById('modal-home').addEventListener('click', () => {
+                window.location.href = 'index.html';
+            });
+
+            document.getElementById('go-home').addEventListener('click', () => {
+                window.location.href = 'index.html';
+            });
+
+            // 自動導回首頁（4秒）
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 4000);
+        })();
+    </script>
+</body>
+
+</html>

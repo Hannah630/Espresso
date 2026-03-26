@@ -1,4 +1,4 @@
-const CART_JS_VERSION = "20260325-4";
+const CART_JS_VERSION = "20260325-5";
 
 console.log("cart.js 已載入", { version: CART_JS_VERSION });
 
